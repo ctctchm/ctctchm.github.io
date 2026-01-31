@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>: Schwartz</title>
+  <title>Théo Schwartz</title>
   <link rel="icon" type="image/png" href="pp.png">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+P  lex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     * { 
@@ -26,8 +26,270 @@
       line-height: 1.6;
       min-height: 100vh;
       transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Landing Page Styles */
+    .landing-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #141414;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .landing-page.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    body.light-mode .landing-page {
+      background: #f8fafc;
+    }
+
+    .landing-content {
+      text-align: center;
+      max-width: 600px;
+      padding: 40px;
+    }
+
+    .landing-profile-wrapper {
       position: relative;
-      overflow-x: hidden;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 32px;
+      opacity: 0;
+      animation: fadeInScale 0.8s ease 0.2s forwards;
+    }
+
+    .landing-profile-picture {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid #2d2d2d;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.light-mode .landing-profile-picture {
+      border-color: #e2e8f0;
+      box-shadow: 0 8px 32px rgba(15, 23, 42, 0.15);
+    }
+
+    .landing-status-dot {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2ecc40;
+      border: 4px solid #141414;
+      animation: pulse 2s infinite;
+    }
+
+    body.light-mode .landing-status-dot {
+      border-color: #f8fafc;
+    }
+
+    .landing-security-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      background: #322f3e;
+      border-radius: 50%;
+      border: 4px solid #141414;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    body.light-mode .landing-security-badge {
+      background: #4f46e5;
+      border-color: #f8fafc;
+    }
+
+    .landing-security-badge i {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .landing-title {
+      font-size: 64px;
+      font-weight: 600;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+    }
+
+    body.light-mode .landing-title {
+      color: #0f172a;
+      background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .landing-subtitle {
+      font-size: 18px;
+      color: #999;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+    }
+
+    body.light-mode .landing-subtitle {
+      color: #64748b;
+    }
+
+    .landing-description {
+      font-size: 15px;
+      color: #aaa;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.8s forwards;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    body.light-mode .landing-description {
+      color: #475569;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 1s forwards;
+      cursor: pointer;
+    }
+
+    .scroll-indicator-text {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    body.light-mode .scroll-indicator-text {
+      color: #94a3b8;
+    }
+
+    .scroll-indicator-icon {
+      width: 24px;
+      height: 40px;
+      border: 2px solid #666;
+      border-radius: 12px;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    body.light-mode .scroll-indicator-icon {
+      border-color: #94a3b8;
+    }
+
+    .scroll-indicator:hover .scroll-indicator-icon {
+      border-color: #322f3e;
+    }
+
+    body.light-mode .scroll-indicator:hover .scroll-indicator-icon {
+      border-color: #4f46e5;
+    }
+
+    .scroll-indicator-icon::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: #666;
+      border-radius: 2px;
+      animation: scrollDown 2s infinite;
+    }
+
+    body.light-mode .scroll-indicator-icon::before {
+      background: #94a3b8;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scrollDown {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(-50%) translateY(12px);
+        opacity: 0.3;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(46, 204, 64, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(46, 204, 64, 0);
+      }
+    }
+
+    /* Main content initially hidden */
+    .main-content {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .main-content.visible {
+      opacity: 1;
     }
 
     .container {
@@ -552,9 +814,6 @@
       object-fit: cover;
     }
 
-    /* .profile-picture:hover { }
-       Effets de survol supprimés */
-
     .status-dot {
       position: absolute;
       top: 8px;
@@ -565,15 +824,6 @@
       background: #2ecc40;
       border: 3px solid #141414;
       animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(46, 204, 64, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 0 8px rgba(46, 204, 64, 0);
-      }
     }
 
     .security-badge {
@@ -937,7 +1187,7 @@
       gap: 6px;
     }
 
-    /* Education Section - Frise Minimaliste & Intelligente */
+    /* Education Section */
     #education {
       position: relative;
     }
@@ -959,7 +1209,6 @@
       padding-bottom: 0;
     }
 
-    /* Timeline line - smart gradient based on active state */
     .education-card::before {
       content: '';
       position: absolute;
@@ -975,7 +1224,6 @@
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
     }
 
-    /* Timeline dot - grows on hover */
     .education-card::after {
       content: '';
       position: absolute;
@@ -1003,7 +1251,6 @@
       background: rgba(50, 47, 62, 0.3);
     }
 
-    /* Content wrapper */
     .education-content {
       position: relative;
     }
@@ -1099,7 +1346,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* Description expansion */
     .education-description {
       max-height: 0;
       overflow: hidden;
@@ -1127,7 +1373,6 @@
       font-style: normal;
     }
 
-    /* Compact info grid */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1180,7 +1425,6 @@
       display: none;
     }
 
-    /* Platforms - inline minimal */
     .platforms-section {
       margin-top: 32px;
       padding-top: 24px;
@@ -1518,19 +1762,184 @@
       transform: translateY(-4px) scale(1.1);
     }
 
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #322f3e;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(.6,.2,.2,1);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    body.light-mode .toast {
+      background: #4f46e5;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
+      /* Landing Page Mobile */
+      .landing-page {
+        padding: 20px;
+      }
+
+      .landing-content {
+        padding: 20px;
+      }
+
+      .landing-profile-wrapper {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 24px;
+      }
+
+      .landing-profile-picture {
+        width: 110px;
+        height: 110px;
+        border-width: 4px;
+      }
+
+      .landing-status-dot {
+        width: 16px;
+        height: 16px;
+        border-width: 3px;
+        top: 8px;
+        left: 8px;
+      }
+
+      .landing-security-badge {
+        width: 28px;
+        height: 28px;
+        border-width: 3px;
+        bottom: 8px;
+        right: 8px;
+      }
+
+      .landing-security-badge i {
+        font-size: 12px;
+      }
+
+      .landing-title {
+        font-size: 40px;
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+      }
+
+      .landing-subtitle {
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      .landing-description {
+        font-size: 13px;
+        padding: 0 10px;
+        margin-bottom: 32px;
+        line-height: 1.6;
+      }
+
+      .scroll-indicator {
+        bottom: 32px;
+      }
+
+      .scroll-indicator-text {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+      }
+
+      .scroll-indicator-icon {
+        width: 20px;
+        height: 36px;
+      }
+
+      /* Main Content Mobile */
       .container {
-        padding: 100px 20px 60px;
+        padding: 90px 20px 60px;
+      }
+
+      header {
+        margin-bottom: 80px;
+      }
+
+      .profile-wrapper {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 16px;
+      }
+
+      .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-width: 3px;
+      }
+
+      .status-dot {
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+        top: 6px;
+        left: 6px;
+      }
+
+      .security-badge {
+        width: 24px;
+        height: 24px;
+        border-width: 2px;
+        bottom: 6px;
+        right: 6px;
+      }
+
+      .security-badge i {
+        font-size: 11px;
       }
 
       h1 {
         font-size: 36px;
+        letter-spacing: -1px;
+        margin-bottom: 6px;
       }
 
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        margin-bottom: 24px;
+      }
+
+      section {
+        margin-bottom: 60px;
+      }
+
+      /* Navigation Mobile */
       .topnav {
         width: calc(100% - 24px);
-        padding: 6px;
+        padding: 6px 10px;
+        top: 12px;
+      }
+
+      .brand {
+        font-size: 13px;
+        padding: 3px 6px;
+      }
+
+      .brand .dot {
+        width: 7px;
+        height: 7px;
       }
 
       .nav-links {
@@ -1541,21 +1950,26 @@
         display: none;
       }
 
-      .about-grid,
-      .skills-grid {
-        grid-template-columns: 1fr;
+      #toggle-mode {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
       }
 
-      .header-actions {
-        flex-direction: column;
-        width: 100%;
+      .mode-icon-container {
+        width: 18px;
+        height: 18px;
       }
 
-      .btn {
-        width: 100%;
-        justify-content: center;
+      .sun-icon {
+        font-size: 18px;
       }
 
+      .moon-icon {
+        font-size: 16px;
+      }
+
+      /* Clock Mobile */
       #fr-clock-fixed {
         top: 12px;
         right: 12px;
@@ -1563,49 +1977,360 @@
         font-size: 11px;
       }
 
+      #fr-clock-fixed .flag {
+        font-size: 16px;
+      }
+
+      /* Cards Mobile */
+      .about-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .about-card,
+      .skills-category,
+      .cert-section {
+        padding: 20px;
+      }
+
+      .about-card h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+      }
+
+      .about-card p {
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .skills-category h3 {
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .skill {
+        padding: 9px 11px;
+        margin-bottom: 6px;
+        font-size: 12px;
+      }
+
+      .skill i {
+        font-size: 13px;
+      }
+
+      /* Buttons Mobile */
+      .header-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 18px;
+        font-size: 12px;
+      }
+
+      .btn i {
+        font-size: 11px;
+      }
+
+      /* Certifications Mobile */
+      .cert-section h3 {
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+
+      .score-item,
+      .checkpoint {
+        font-size: 13px;
+        padding: 7px 0;
+      }
+
+      .cert-org {
+        font-size: 11px;
+        margin-top: 14px;
+        padding-top: 14px;
+      }
+
+      /* Projects Mobile */
+      .project {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .project-header {
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .project-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+      }
+
+      .project h3 {
+        font-size: 16px;
+      }
+
+      .project-cta {
+        position: static;
+        margin-top: 12px;
+        font-size: 10px;
+        justify-content: flex-end;
+      }
+
+      .project p {
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .project-bullets {
+        font-size: 12px;
+        margin: 14px 0;
+        padding-left: 18px;
+      }
+
+      .project-bullets li {
+        margin-bottom: 6px;
+      }
+
+      .tech-tag {
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+
+      .project-meta {
+        font-size: 11px;
+        gap: 12px;
+      }
+
+      /* Education Mobile */
+      .education-card {
+        padding-left: 48px;
+        padding-bottom: 32px;
+      }
+
+      .education-card::before {
+        left: 19px;
+      }
+
+      .education-card::after {
+        left: 16px;
+        width: 6px;
+        height: 6px;
+        top: 3px;
+      }
+
+      .education-card:hover::after {
+        width: 9px;
+        height: 9px;
+        left: 14px;
+        top: 1px;
+      }
+
+      .education-meta {
+        gap: 8px;
+        margin-bottom: 3px;
+        flex-wrap: wrap;
+      }
+
+      .education-period,
+      .education-location {
+        font-size: 10px;
+      }
+
+      .education-title {
+        font-size: 16px;
+        gap: 6px;
+      }
+
+      .toggle-icon {
+        font-size: 11px;
+      }
+
+      .education-subtitle {
+        font-size: 12px;
+      }
+
+      .education-tags {
+        gap: 6px;
+        margin-top: 6px;
+      }
+
+      .education-tag {
+        font-size: 9px;
+        padding: 3px 7px;
+      }
+
+      .description-content {
+        padding: 20px 0 0;
+      }
+
+      .main-description {
+        font-size: 12px;
+        margin-bottom: 16px;
+        line-height: 1.6;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .info-card h5 {
+        font-size: 8px;
+        margin-bottom: 8px;
+      }
+
+      .info-card li {
+        font-size: 11px;
+        padding: 3px 0;
+      }
+
+      .platforms-section {
+        margin-top: 24px;
+        padding-top: 20px;
+      }
+
+      .platforms-section h3 {
+        font-size: 8px;
+        margin-bottom: 10px;
+      }
+
+      .platforms-grid {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .platform {
+        padding: 10px;
+        width: 100%;
+      }
+
+      .platform-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .platform-name {
+        font-size: 11px;
+      }
+
+      /* Contact Mobile */
+      .contact-intro {
+        padding: 24px 20px;
+        margin-bottom: 24px;
+      }
+
+      .contact-intro h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .contact-intro p {
+        font-size: 13px;
+      }
+
+      .contact-grid {
+        gap: 14px;
+      }
+
+      .contact-card {
+        padding: 16px 18px;
+        gap: 16px;
+      }
+
+      .contact-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+      }
+
+      .contact-label {
+        font-size: 13px;
+      }
+
+      .contact-value {
+        font-size: 12px;
+      }
+
+      /* Footer Mobile */
+      footer {
+        margin-top: 60px;
+        padding: 32px 0 24px;
+      }
+
+      .footer-socials {
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+
+      .footer-text {
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      /* Back to Top Mobile */
       #back-to-top {
         bottom: 20px;
         right: 20px;
         width: 44px;
         height: 44px;
+        font-size: 18px;
       }
 
-      .education-card {
-        padding-left: 56px;
-        padding-bottom: 36px;
+      /* Toast Mobile */
+      .toast {
+        left: 16px;
+        right: 16px;
+        transform: translateX(0) translateY(100px);
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+      
+      .toast.show {
+        transform: translateX(0) translateY(0);
+      }
+    }
+
+    /* Extra small devices (very small phones) */
+    @media (max-width: 375px) {
+      .landing-title {
+        font-size: 34px;
       }
 
-      .education-card::before {
-        left: 23px;
+      .landing-subtitle {
+        font-size: 14px;
       }
 
-      .education-card::after {
-        left: 20px;
-        width: 6px;
-        height: 6px;
+      .landing-description {
+        font-size: 12px;
       }
 
-      .education-card:hover::after {
-        width: 10px;
-        height: 10px;
-        left: 18px;
+      h1 {
+        font-size: 32px;
       }
 
-      .education-title {
-        font-size: 17px;
+      .container {
+        padding: 90px 16px 50px;
       }
 
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .platforms-grid {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .platform {
-        width: 100%;
+      .about-card,
+      .skills-category,
+      .cert-section,
+      .project {
+        padding: 16px;
       }
     }
 
@@ -1615,54 +2340,35 @@
         transition: none !important;
       }
     }
-
-    .toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #322f3e;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  z-index: 10000;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(.6,.2,.2,1);
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-body.light-mode .toast {
-  background: #4f46e5;
-}
-
-@media (max-width: 768px) {
-  .toast {
-    left: 16px;
-    right: 16px;
-    transform: translateX(0) translateY(100px);
-    font-size: 12px;
-    padding: 10px 16px;
-  }
-  .toast.show {
-    transform: translateX(0) translateY(0);
-  }
-}
   </style>
-
-
-
 </head>
 
-<div class="toast" id="toast"></div>
-
 <body>
+  <!-- Landing Page -->
+  <div class="landing-page" id="landingPage">
+    <div class="landing-content">
+      <div class="landing-profile-wrapper">
+        <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="landing-profile-picture">
+        <span class="landing-status-dot"></span>
+        <span class="landing-security-badge">
+          <i class="fas fa-shield-alt"></i>
+        </span>
+      </div>
+      <h1 class="landing-title">Théo Schwartz</h1>
+      <p class="landing-subtitle">Cybersecurity Student · Paris</p>
+      <p class="landing-description">
+        Building security tools that solve real problems. Fascinated by failure modes — how systems break, how networks fail, how assumptions crumble.
+      </p>
+    </div>
+    <div class="scroll-indicator" onclick="scrollToContent()">
+      <span class="scroll-indicator-text">Scroll</span>
+      <div class="scroll-indicator-icon"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
   <!-- Clock -->
   <div id="fr-clock-fixed">
     <span class="flag">🇫🇷</span>
@@ -1692,260 +2398,319 @@ body.light-mode .toast {
     </div>
   </nav>
 
-  <div class="container">
-    <!-- Header -->
-    <header id="top">
-      <div class="profile-wrapper">
-        <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="profile-picture">
-        <span class="status-dot"></span>
-        <span class="security-badge">
-          <i class="fas fa-shield-alt"></i>
-        </span>
-      </div>
-      <h1>Théo Schwartz</h1>
-      <p class="subtitle">Cybersecurity Student · Paris</p>
-      <div class="header-actions">
-        <a href="Théo-SCHWARTZ-CV.pdf" download class="btn">
-          <i class="fas fa-file-arrow-down"></i>
-          Download CV
-        </a>
-        <a href="#contact" class="btn">
-          <i class="fas fa-paper-plane"></i>
-          Get in Touch
-        </a>
-      </div>
-    </header>
-
-    <!-- About -->
-    <section id="about">
-      <h2>About</h2>
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Who</h3>
-          <p>IPSSI student (2025–2028), Paris. I build security tools that solve actual problems, not theoretical ones. Fascinated by failure modes — how code breaks, how networks fail, how assumptions crumble.</p>
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <div class="container">
+      <!-- Header -->
+      <header id="top">
+        <div class="profile-wrapper">
+          <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="profile-picture">
+          <span class="status-dot"></span>
+          <span class="security-badge">
+            <i class="fas fa-shield-alt"></i>
+          </span>
         </div>
+        <h1>Théo Schwartz</h1>
+        <p class="subtitle">Cybersecurity Student · Paris</p>
+        <div class="header-actions">
+          <a href="Théo-SCHWARTZ-CV.pdf" download class="btn">
+            <i class="fas fa-file-arrow-down"></i>
+            Download CV
+          </a>
+          <a href="#contact" class="btn">
+            <i class="fas fa-paper-plane"></i>
+            Get in Touch
+          </a>
+        </div>
+      </header>
+
+      <!-- About -->
+      <section id="about">
+        <h2>About</h2>
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>Who</h3>
+            <p>IPSSI student (2025–2028), Paris. I build security tools that solve actual problems, not theoretical ones. Fascinated by failure modes — how code breaks, how networks fail, how assumptions crumble.</p>
+          </div>
+          
+          <div class="about-card">
+            <h3>Am</h3>
+            <p>Semi-nomadic by design. Currently Paris, but always moving. Music production isn't a hobby; it's how I think. Building synthesis patches, finding harmonic accidents between hardware and software.</p>
+          </div>
+          
+          <div class="about-card">
+            <h3>I</h3>
+            <p>Value pragmatism over everything. Build, learn through doing, document ruthlessly. My code solves real problems, not ego problems. The unglamorous work is what makes systems survive.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+          <div class="skills-category">
+            <h3>Languages</h3>
+            <div class="skill"><i class="fab fa-python"></i>Python</div>
+            <div class="skill"><i class="fab fa-js"></i>JavaScript</div>
+            <div class="skill"><i class="fas fa-terminal"></i>Bash</div>
+            <div class="skill"><i class="fab fa-php"></i>PHP</div>
+            <div class="skill"><i class="fas fa-code"></i>Lua</div>
+            <div class="skill"><i class="fab fa-html5"></i>HTML/CSS</div>
+          </div>
+
+          <div class="skills-category">
+            <h3>Security Tools</h3>
+            <div class="skill"><i class="fas fa-shield-alt"></i>Metasploit</div>
+            <div class="skill"><i class="fas fa-bug"></i>Burp Suite</div>
+            <div class="skill"><i class="fas fa-network-wired"></i>Nmap</div>
+            <div class="skill"><i class="fas fa-search"></i>Wireshark</div>
+            <div class="skill"><i class="fab fa-linux"></i>Linux</div>
+          </div>
+
+          <div class="skills-category">
+            <h3>Environment</h3>
+            <div class="skill"><i class="fas fa-dragon"></i>Kali Linux</div>
+            <div class="skill"><i class="fas fa-code"></i>VS Code</div>
+            <div class="skill"><i class="fab fa-git-alt"></i>Git</div>
+            <div class="skill"><i class="fab fa-docker"></i>Docker</div>
+            <div class="skill"><i class="fas fa-cube"></i>VirtualBox</div>
+            <div class="skill"><i class="fas fa-cloud"></i>VMware</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section id="certifications">
+        <h2>Certifications</h2>
         
-        <div class="about-card">
-          <h3>Am</h3>
-          <p>Semi-nomadic by design. Currently Paris, but always moving. Music production isn't a hobby; it's how I think. Building synthesis patches, finding harmonic accidents between hardware and software.</p>
-        </div>
-        
-        <div class="about-card">
-          <h3>I</h3>
-          <p>Value pragmatism over everything. Build, learn through doing, document ruthlessly. My code solves real problems, not ego problems. The unglamorous work is what makes systems survive.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <h2>Technical Skills</h2>
-      <div class="skills-grid">
-        <div class="skills-category">
-          <h3>Languages</h3>
-          <div class="skill"><i class="fab fa-python"></i>Python</div>
-          <div class="skill"><i class="fab fa-js"></i>JavaScript</div>
-          <div class="skill"><i class="fas fa-terminal"></i>Bash</div>
-          <div class="skill"><i class="fab fa-php"></i>PHP</div>
-          <div class="skill"><i class="fas fa-code"></i>Lua</div>
-          <div class="skill"><i class="fab fa-html5"></i>HTML/CSS</div>
+        <div class="cert-section">
+          <h3>SecNumacadémie</h3>
+          <div class="score-item"><span>Panorama de la SSI</span><span>92%</span></div>
+          <div class="score-item"><span>Sécurité de l'authentification</span><span>90%</span></div>
+          <div class="score-item"><span>Sécurité sur Internet</span><span>86%</span></div>
+          <div class="score-item"><span>Sécurité du poste de travail</span><span>88%</span></div>
+          <p class="cert-org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
         </div>
 
-        <div class="skills-category">
-          <h3>Security Tools</h3>
-          <div class="skill"><i class="fas fa-shield-alt"></i>Metasploit</div>
-          <div class="skill"><i class="fas fa-bug"></i>Burp Suite</div>
-          <div class="skill"><i class="fas fa-network-wired"></i>Nmap</div>
-          <div class="skill"><i class="fas fa-search"></i>Wireshark</div>
-          <div class="skill"><i class="fab fa-linux"></i>Linux</div>
+        <div class="cert-section">
+          <h3>Commission Nationale de l'Informatique et des Libertés</h3>
+          <div class="checkpoint"><i class="fas fa-check"></i>Le RGPD et ses notions clés</div>
+          <div class="checkpoint"><i class="fas fa-check"></i>Principes de la protection des données</div>
+          <div class="checkpoint"><i class="fas fa-check"></i>Responsabilités des acteurs</div>
+          <div class="checkpoint"><i class="fas fa-check"></i>DPO et outils de la conformité</div>
         </div>
+      </section>
 
-        <div class="skills-category">
-          <h3>Environment</h3>
-          <div class="skill"><i class="fas fa-dragon"></i>Kali Linux</div>
-          <div class="skill"><i class="fas fa-code"></i>VS Code</div>
-          <div class="skill"><i class="fab fa-git-alt"></i>Git</div>
-          <div class="skill"><i class="fab fa-docker"></i>Docker</div>
-          <div class="skill"><i class="fas fa-cube"></i>VirtualBox</div>
-          <div class="skill"><i class="fas fa-cloud"></i>VMware</div>
-        </div>
-      </div>
-    </section>
+      <!-- Projects -->
+      <section id="projects">
+        <h2>Projects</h2>
 
-    <!-- Certifications -->
-    <section id="certifications">
-      <h2>Certifications</h2>
-      
-      <div class="cert-section">
-        <h3>SecNumacadémie</h3>
-        <div class="score-item"><span>Panorama de la SSI</span><span>92%</span></div>
-        <div class="score-item"><span>Sécurité de l'authentification</span><span>90%</span></div>
-        <div class="score-item"><span>Sécurité sur Internet</span><span>86%</span></div>
-        <div class="score-item"><span>Sécurité du poste de travail</span><span>88%</span></div>
-        <p class="cert-org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
-      </div>
+        <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
+          <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <div class="project-header">
+            <span class="project-icon"><i class="fas fa-shield-alt"></i></span>
+            <h3>Password Analyzer</h3>
+          </div>
+          <p>Built because I got tired of guessing password strength. Entropy scoring that actually works, pattern recognition for keyboard walks, predictable substitutions. Estimates real-world crack time using GPU benchmarks.</p>
+          <ul class="project-bullets">
+            <li><strong>Scoring:</strong> entropy-based strength with practical heuristics.</li>
+            <li><strong>Patterns:</strong> detects keyboard walks and common substitution habits.</li>
+            <li><strong>Estimation:</strong> crack-time approximation using GPU benchmark baselines.</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
+            <span class="tech-tag"><i class="fas fa-shield-alt"></i>Security</span>
+            <span class="tech-tag"><i class="fas fa-lock"></i>Cryptography</span>
+          </div>
+          <div class="project-meta">
+            <span><i class="fas fa-code"></i>~800 LOC</span>
+            <span><i class="fas fa-calendar"></i>2025</span>
+            <span><i class="fas fa-star"></i>Active</span>
+          </div>
+        </a>
 
-      <div class="cert-section">
-        <h3>Commission Nationale de l'Informatique et des Libertés</h3>
-        <div class="checkpoint"><i class="fas fa-check"></i>Le RGPD et ses notions clés</div>
-        <div class="checkpoint"><i class="fas fa-check"></i>Principes de la protection des données</div>
-        <div class="checkpoint"><i class="fas fa-check"></i>Responsabilités des acteurs</div>
-        <div class="checkpoint"><i class="fas fa-check"></i>DPO et outils de la conformité</div>
-      </div>
-    </section>
+        <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
+          <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <div class="project-header">
+            <span class="project-icon"><i class="fas fa-bug"></i></span>
+            <h3>Web Vuln Analyzer</h3>
+          </div>
+          <p>My first real security tool. Automates the boring part, testing. Finds SQLi, XSS, CSRF, path traversal, parameter pollution. The insight: generate context-aware payloads.</p>
+          <ul class="project-bullets">
+            <li><strong>Automation:</strong> crawl + test loop to reduce manual recon.</li>
+            <li><strong>Coverage:</strong> targets SQLi, XSS, CSRF, traversal, parameter pollution.</li>
+            <li><strong>Payloads:</strong> context-aware generation rather than naive fuzzing.</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
+            <span class="tech-tag"><i class="fas fa-globe"></i>HTTP</span>
+            <span class="tech-tag"><i class="fas fa-code"></i>BeautifulSoup</span>
+          </div>
+          <div class="project-meta">
+            <span><i class="fas fa-code"></i>~1200 LOC</span>
+            <span><i class="fas fa-calendar"></i>2024</span>
+            <span><i class="fas fa-star"></i>Active</span>
+          </div>
+        </a>
 
-    <!-- Projects -->
-    <section id="projects">
-      <h2>Projects</h2>
+        <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
+          <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <div class="project-header">
+            <span class="project-icon"><i class="fas fa-image"></i></span>
+            <h3>Steganography Toolkit</h3>
+          </div>
+          <p>LSB steganography, EXIF manipulation, metadata injection. Hide data in images imperceptibly — the eye won't catch what statistics can't explain.</p>
+          <ul class="project-bullets">
+            <li><strong>Techniques:</strong> LSB steganography + EXIF/metadata manipulation.</li>
+            <li><strong>Workflow:</strong> hide + extract utilities designed for real scenarios.</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
+            <span class="tech-tag"><i class="fas fa-image"></i>PIL</span>
+            <span class="tech-tag"><i class="fas fa-images"></i>Processing</span>
+          </div>
+          <div class="project-meta">
+            <span><i class="fas fa-code"></i>~600 LOC</span>
+            <span><i class="fas fa-calendar"></i>2024</span>
+            <span><i class="fas fa-star"></i>Research</span>
+          </div>
+        </a>
 
-      <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
-        <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
-        <div class="project-header">
-          <span class="project-icon"><i class="fas fa-shield-alt"></i></span>
-          <h3>Password Analyzer</h3>
-        </div>
-        <p>Built because I got tired of guessing password strength. Entropy scoring that actually works, pattern recognition for keyboard walks, predictable substitutions. Estimates real-world crack time using GPU benchmarks.</p>
-        <ul class="project-bullets">
-          <li><strong>Scoring:</strong> entropy-based strength with practical heuristics.</li>
-          <li><strong>Patterns:</strong> detects keyboard walks and common substitution habits.</li>
-          <li><strong>Estimation:</strong> crack-time approximation using GPU benchmark baselines.</li>
-        </ul>
-        <div class="project-tech">
-          <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
-          <span class="tech-tag"><i class="fas fa-shield-alt"></i>Security</span>
-          <span class="tech-tag"><i class="fas fa-lock"></i>Cryptography</span>
-        </div>
-        <div class="project-meta">
-          <span><i class="fas fa-code"></i>~800 LOC</span>
-          <span><i class="fas fa-calendar"></i>2025</span>
-          <span><i class="fas fa-star"></i>Active</span>
-        </div>
-      </a>
+        <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
+          <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <div class="project-header">
+            <span class="project-icon"><i class="fas fa-gamepad"></i></span>
+            <h3>Interactive Narrative Engine</h3>
+          </div>
+          <p>Passion project. Interactive fiction engine built on state machines. Branching dialogue with real consequences. Built to prove a thesis: games and serious tools are the same architecture.</p>
+          <ul class="project-bullets">
+            <li><strong>Core:</strong> state-machine driven story logic.</li>
+            <li><strong>Design:</strong> branching dialogue with meaningful consequences.</li>
+            <li><strong>Architecture:</strong> tool-like structure applied to game systems.</li>
+          </ul>
+          <div class="project-tech">
+            <span class="tech-tag"><i class="fab fa-js"></i>JavaScript</span>
+            <span class="tech-tag"><i class="fab fa-html5"></i>HTML5</span>
+            <span class="tech-tag"><i class="fas fa-code"></i>JSON</span>
+          </div>
+          <div class="project-meta">
+            <span><i class="fas fa-code"></i>~400 LOC</span>
+            <span><i class="fas fa-calendar"></i>2023</span>
+            <span><i class="fas fa-star"></i>Experimental</span>
+          </div>
+        </a>
+      </section>
 
-      <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
-        <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
-        <div class="project-header">
-          <span class="project-icon"><i class="fas fa-bug"></i></span>
-          <h3>Web Vuln Analyzer</h3>
-        </div>
-        <p>My first real security tool. Automates the boring part, testing. Finds SQLi, XSS, CSRF, path traversal, parameter pollution. The insight: generate context-aware payloads.</p>
-        <ul class="project-bullets">
-          <li><strong>Automation:</strong> crawl + test loop to reduce manual recon.</li>
-          <li><strong>Coverage:</strong> targets SQLi, XSS, CSRF, traversal, parameter pollution.</li>
-          <li><strong>Payloads:</strong> context-aware generation rather than naive fuzzing.</li>
-        </ul>
-        <div class="project-tech">
-          <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
-          <span class="tech-tag"><i class="fas fa-globe"></i>HTTP</span>
-          <span class="tech-tag"><i class="fas fa-code"></i>BeautifulSoup</span>
-        </div>
-        <div class="project-meta">
-          <span><i class="fas fa-code"></i>~1200 LOC</span>
-          <span><i class="fas fa-calendar"></i>2024</span>
-          <span><i class="fas fa-star"></i>Active</span>
-        </div>
-      </a>
+      <!-- Education -->
+      <section id="education">
+        <h2>Education</h2>
 
-      <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
-        <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
-        <div class="project-header">
-          <span class="project-icon"><i class="fas fa-image"></i></span>
-          <h3>Steganography Toolkit</h3>
-        </div>
-        <p>LSB steganography, EXIF manipulation, metadata injection. Hide data in images imperceptibly — the eye won't catch what statistics can't explain.</p>
-        <ul class="project-bullets">
-          <li><strong>Techniques:</strong> LSB steganography + EXIF/metadata manipulation.</li>
-          <li><strong>Workflow:</strong> hide + extract utilities designed for real scenarios.</li>
-        </ul>
-        <div class="project-tech">
-          <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
-          <span class="tech-tag"><i class="fas fa-image"></i>PIL</span>
-          <span class="tech-tag"><i class="fas fa-images"></i>Processing</span>
-        </div>
-        <div class="project-meta">
-          <span><i class="fas fa-code"></i>~600 LOC</span>
-          <span><i class="fas fa-calendar"></i>2024</span>
-          <span><i class="fas fa-star"></i>Research</span>
-        </div>
-      </a>
-
-      <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank">
-        <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
-        <div class="project-header">
-          <span class="project-icon"><i class="fas fa-gamepad"></i></span>
-          <h3>Interactive Narrative Engine</h3>
-        </div>
-        <p>Passion project. Interactive fiction engine built on state machines. Branching dialogue with real consequences. Built to prove a thesis: games and serious tools are the same architecture.</p>
-        <ul class="project-bullets">
-          <li><strong>Core:</strong> state-machine driven story logic.</li>
-          <li><strong>Design:</strong> branching dialogue with meaningful consequences.</li>
-          <li><strong>Architecture:</strong> tool-like structure applied to game systems.</li>
-        </ul>
-        <div class="project-tech">
-          <span class="tech-tag"><i class="fab fa-js"></i>JavaScript</span>
-          <span class="tech-tag"><i class="fab fa-html5"></i>HTML5</span>
-          <span class="tech-tag"><i class="fas fa-code"></i>JSON</span>
-        </div>
-        <div class="project-meta">
-          <span><i class="fas fa-code"></i>~400 LOC</span>
-          <span><i class="fas fa-calendar"></i>2023</span>
-          <span><i class="fas fa-star"></i>Experimental</span>
-        </div>
-      </a>
-    </section>
-
-    <!-- Education -->
-    <section id="education">
-      <h2>Education</h2>
-
-      <div class="education-timeline">
-        <div class="education-card">
-          <div class="education-content">
-            <div class="education-header" onclick="toggleEducation('lycee')">
-              <div class="education-meta">
-                <span class="education-period">2023—2025</span>
-                <span class="education-separator">/</span>
-                <span class="education-location">Annecy</span>
+        <div class="education-timeline">
+          <div class="education-card">
+            <div class="education-content">
+              <div class="education-header" onclick="toggleEducation('lycee')">
+                <div class="education-meta">
+                  <span class="education-period">2023—2025</span>
+                  <span class="education-separator">/</span>
+                  <span class="education-location">Annecy</span>
+                </div>
+                <h3 class="education-title">
+                  Lycée Lachenal
+                  <i class="fas fa-chevron-down toggle-icon" id="toggle-lycee"></i>
+                </h3>
+                <p class="education-subtitle">Baccalauréat NSI · Sciences de l'Ingénieur</p>
+                <div class="education-tags">
+                  <span class="education-tag">Informatique</span>
+                  <span class="education-tag">Systèmes</span>
+                </div>
               </div>
-              <h3 class="education-title">
-                Lycée Lachenal
-                <i class="fas fa-chevron-down toggle-icon" id="toggle-lycee"></i>
-              </h3>
-              <p class="education-subtitle">Baccalauréat NSI · Sciences de l'Ingénieur</p>
-              <div class="education-tags">
-                <span class="education-tag">Informatique</span>
-                <span class="education-tag">Systèmes</span>
+              <div class="education-description" id="desc-lycee">
+                <div class="description-content">
+                  <p class="main-description">Systems thinking — comprendre l'interaction, la cascade, la faille. Fondations d'ingénierie — résoudre à l'échelle structurelle. Électronique & systèmes numériques — la théorie rencontre la réalité physique.</p>
+                  <div class="info-grid">
+                    <div class="info-card">
+                      <h5>Formation</h5>
+                      <ul>
+                        <li>Baccalauréat Général</li>
+                        <li>Spécialité: SIN</li>
+                        <li>Annecy, France</li>
+                      </ul>
+                    </div>
+                    <div class="info-card">
+                      <h5>Matières</h5>
+                      <ul>
+                        <li>Numérique et Sciences Informatiques</li>
+                        <li>Mathématiques</li>
+                        <li>Sciences de l'Ingénieur</li>
+                        <li>Physique-Chimie</li>
+                      </ul>
+                    </div>
+                    <div class="info-card">
+                      <h5>Projets</h5>
+                      <ul>
+                        <li>Réseaux de capteurs IoT</li>
+                        <li>Systèmes embarqués Linux</li>
+                        <li>Protocoles réseau</li>
+                        <li>Automatisation industrielle</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="education-description" id="desc-lycee">
-              <div class="description-content">
-                <p class="main-description">Systems thinking — comprendre l'interaction, la cascade, la faille. Fondations d'ingénierie — résoudre à l'échelle structurelle. Électronique & systèmes numériques — la théorie rencontre la réalité physique.</p>
-                <div class="info-grid">
-                  <div class="info-card">
-                    <h5>Formation</h5>
-                    <ul>
-                      <li>Baccalauréat Général</li>
-                      <li>Spécialité: SIN</li>
-                      <li>Annecy, France</li>
-                    </ul>
-                  </div>
-                  <div class="info-card">
-                    <h5>Matières</h5>
-                    <ul>
-                      <li>Numérique et Sciences Informatiques</li>
-                      <li>Mathématiques</li>
-                      <li>Sciences de l'Ingénieur</li>
-                      <li>Physique-Chimie</li>
-                    </ul>
-                  </div>
-                  <div class="info-card">
-                    <h5>Projets</h5>
-                    <ul>
-                      <li>Réseaux de capteurs IoT</li>
-                      <li>Systèmes embarqués Linux</li>
-                      <li>Protocoles réseau</li>
-                      <li>Automatisation industrielle</li>
-                    </ul>
+          </div>
+
+          <div class="education-card">
+            <div class="education-content">
+              <div class="education-header" onclick="toggleEducation('ipssi')">
+                <div class="education-meta">
+                  <span class="education-period">2025—2028</span>
+                  <span class="education-separator">/</span>
+                  <span class="education-location">Paris</span>
+                </div>
+                <h3 class="education-title">
+                  IPSSI — Bachelor Cybersecurity
+                  <i class="fas fa-chevron-down toggle-icon" id="toggle-ipssi"></i>
+                </h3>
+                <p class="education-subtitle">Sécurité offensive · Architecture systèmes</p>
+                <div class="education-tags">
+                  <span class="education-tag">Année 1</span>
+                  <span class="education-tag">En cours</span>
+                </div>
+              </div>
+              <div class="education-description" id="desc-ipssi">
+                <div class="description-content">
+                  <p class="main-description">Architecture systèmes — comprendre la machine à attaquer. Protocoles & sécurité réseau — comment l'internet échoue. Sécurité offensive — penser comme un attaquant.</p>
+                  <div class="info-grid">
+                    <div class="info-card">
+                      <h5>Formation</h5>
+                      <ul>
+                        <li>Bachelor Cybersécurité</li>
+                        <li>Année 1 (2025-2026)</li>
+                        <li>Fin prévue: 2028</li>
+                        <li>Paris, France</li>
+                      </ul>
+                    </div>
+                    <div class="info-card">
+                      <h5>Modules</h5>
+                      <ul>
+                        <li>Architecture des systèmes</li>
+                        <li>Protocoles & sécurité réseau</li>
+                        <li>Sécurité offensive</li>
+                        <li>Administration Linux</li>
+                        <li>Tests de pénétration</li>
+                      </ul>
+                    </div>
+                    <div class="info-card">
+                      <h5>Outils</h5>
+                      <ul>
+                        <li>Kali Linux, Metasploit</li>
+                        <li>Burp Suite, Wireshark</li>
+                        <li>Nmap, OWASP Tools</li>
+                        <li>John the Ripper</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1953,152 +2718,167 @@ body.light-mode .toast {
           </div>
         </div>
 
-        <div class="education-card">
-          <div class="education-content">
-            <div class="education-header" onclick="toggleEducation('ipssi')">
-              <div class="education-meta">
-                <span class="education-period">2025—2028</span>
-                <span class="education-separator">/</span>
-                <span class="education-location">Paris</span>
+        <div class="platforms-section">
+          <h3>Practice Platforms</h3>
+          <div class="platforms-grid">
+            <div class="platform">
+              <div class="platform-icon">
+                <img src="https://www.root-me.org/IMG/logo_rouge.png" alt="Root-Me">
               </div>
-              <h3 class="education-title">
-                IPSSI — Bachelor Cybersecurity
-                <i class="fas fa-chevron-down toggle-icon" id="toggle-ipssi"></i>
-              </h3>
-              <p class="education-subtitle">Sécurité offensive · Architecture systèmes</p>
-              <div class="education-tags">
-                <span class="education-tag">Année 1</span>
-                <span class="education-tag">En cours</span>
+              <div class="platform-info">
+                <div class="platform-name">Root-Me</div>
               </div>
             </div>
-            <div class="education-description" id="desc-ipssi">
-              <div class="description-content">
-                <p class="main-description">Architecture systèmes — comprendre la machine à attaquer. Protocoles & sécurité réseau — comment l'internet échoue. Sécurité offensive — penser comme un attaquant.</p>
-                <div class="info-grid">
-                  <div class="info-card">
-                    <h5>Formation</h5>
-                    <ul>
-                      <li>Bachelor Cybersécurité</li>
-                      <li>Année 1 (2025-2026)</li>
-                      <li>Fin prévue: 2028</li>
-                      <li>Paris, France</li>
-                    </ul>
-                  </div>
-                  <div class="info-card">
-                    <h5>Modules</h5>
-                    <ul>
-                      <li>Architecture des systèmes</li>
-                      <li>Protocoles & sécurité réseau</li>
-                      <li>Sécurité offensive</li>
-                      <li>Administration Linux</li>
-                      <li>Tests de pénétration</li>
-                    </ul>
-                  </div>
-                  <div class="info-card">
-                    <h5>Outils</h5>
-                    <ul>
-                      <li>Kali Linux, Metasploit</li>
-                      <li>Burp Suite, Wireshark</li>
-                      <li>Nmap, OWASP Tools</li>
-                      <li>John the Ripper</li>
-                    </ul>
-                  </div>
-                </div>
+            <div class="platform">
+              <div class="platform-icon">
+                <img src="https://assets.tryhackme.com/img/THMlogo.png" alt="TryHackMe">
+              </div>
+              <div class="platform-info">
+                <div class="platform-name">TryHackMe</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="platforms-section">
-        <h3>Practice Platforms</h3>
-        <div class="platforms-grid">
-          <div class="platform">
-            <div class="platform-icon">
-              <img src="https://www.root-me.org/IMG/logo_rouge.png" alt="Root-Me">
-            </div>
-            <div class="platform-info">
-              <div class="platform-name">Root-Me</div>
-            </div>
-          </div>
-          <div class="platform">
-            <div class="platform-icon">
-              <img src="https://assets.tryhackme.com/img/THMlogo.png" alt="TryHackMe">
-            </div>
-            <div class="platform-info">
-              <div class="platform-name">TryHackMe</div>
-            </div>
-          </div>
+      <!-- Contact -->
+      <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-intro">
+          <h3>Let's Connect</h3>
+          <p>N'hésitez pas à me contacter pour toute opportunité, collaboration ou question.</p>
         </div>
-      </div>
-    </section>
+        <div class="contact-grid">
+          <div class="contact-card" onclick="copyEmail()" style="cursor: pointer;">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-info">
+              <div class="contact-label">Email</div>
+              <div class="contact-value">schwartz.th@proton.me <br> <span class="contact-status">Réponse 24h</span></div>
+            </div>
+          </div>
+          <a href="https://github.com/ctctchm" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="contact-info">
+              <div class="contact-label">GitHub</div>
+              <div class="contact-value">@ctctchm</div>
+            </div>
+          </a>
+          <a href="https://www.root-me.org/ctctchm" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-flag"></i>
+            </div>
+            <div class="contact-info">
+              <div class="contact-label">Root-Me</div>
+              <div class="contact-value">ctctchm</div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </div>
 
-    <!-- Contact -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="contact-intro">
-        <h3>Let's Connect</h3>
-        <p>N'hésitez pas à me contacter pour toute opportunité, collaboration ou question.</p>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-card" onclick="copyEmail()" style="cursor: pointer;">
-          <div class="contact-icon">
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-socials">
+          <a href="mailto:schwartz.th@proton.me" class="social-link" title="Email">
             <i class="fas fa-envelope"></i>
-          </div>
-          <div class="contact-info">
-            <div class="contact-label">Email</div>
-            <div class="contact-value">schwartz.th@proton.me <br> <span class="contact-status">Réponse 24h</span></div>
-          </div>
-        </a>
-        <a href="https://github.com/ctctchm" target="_blank" class="contact-card">
-          <div class="contact-icon">
+          </a>
+          <a href="https://github.com/ctctchm" target="_blank" class="social-link" title="GitHub">
             <i class="fab fa-github"></i>
-          </div>
-          <div class="contact-info">
-            <div class="contact-label">GitHub</div>
-            <div class="contact-value">@ctctchm</div>
-          </div>
-        </a>
-        <a href="https://www.root-me.org/ctctchm" target="_blank" class="contact-card">
-          <div class="contact-icon">
+          </a>
+          <a href="https://www.root-me.org/ctctchm" target="_blank" class="social-link" title="Root-Me">
             <i class="fas fa-flag"></i>
-          </div>
-          <div class="contact-info">
-            <div class="contact-label">Root-Me</div>
-            <div class="contact-value">ctctchm</div>
-          </div>
-        </a>
+          </a>
+        </div>
+        <div class="footer-text">
+          © 2025 Théo Schwartz<br>
+          <span>Currently based in Paris · Always learning</span>
+        </div>
       </div>
-    </section>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-socials">
-        <a href="mailto:schwartz.th@proton.me" class="social-link" title="Email">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://github.com/ctctchm" target="_blank" class="social-link" title="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.root-me.org/ctctchm" target="_blank" class="social-link" title="Root-Me">
-          <i class="fas fa-flag"></i>
-        </a>
-      </div>
-      <div class="footer-text">
-        © 2025 Théo Schwartz<br>
-        <span>Currently based in Paris · Always learning</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Back to Top -->
-  <button id="back-to-top" title="Back to top">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-
   <script>
+    // Détection mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Landing page logic
+    let hasScrolled = false;
+    
+    function scrollToContent() {
+      const landingPage = document.getElementById('landingPage');
+      const mainContent = document.getElementById('mainContent');
+      
+      landingPage.classList.add('hidden');
+      mainContent.classList.add('visible');
+      hasScrolled = true;
+      
+      // Small delay to ensure landing page is hidden before scrolling
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+
+    // Auto-hide landing page on scroll
+    let scrollTimeout;
+    let lastScrollY = 0;
+    
+    window.addEventListener('scroll', () => {
+      if (!hasScrolled) {
+        const currentScrollY = window.scrollY;
+        
+        // Sur mobile, détecter un scroll vers le bas
+        if (isMobile && currentScrollY > lastScrollY && currentScrollY > 30) {
+          scrollToContent();
+        } else if (!isMobile && currentScrollY > 50) {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            scrollToContent();
+          }, 100);
+        }
+        
+        lastScrollY = currentScrollY;
+      }
+    }, { passive: true });
+
+    // Auto-hide landing page on wheel event (desktop)
+    if (!isMobile) {
+      window.addEventListener('wheel', (e) => {
+        if (!hasScrolled && e.deltaY > 0) {
+          scrollToContent();
+        }
+      }, { passive: true });
+    }
+
+    // Touch events for mobile
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+      if (!hasScrolled) {
+        touchStartY = e.changedTouches[0].screenY;
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      if (!hasScrolled) {
+        touchEndY = e.changedTouches[0].screenY;
+        // Détecter un swipe vers le haut (scroll vers le bas)
+        if (touchStartY - touchEndY > 50) {
+          scrollToContent();
+        }
+      }
+    }, { passive: true });
+
     // Clock
     function updateClock() {
       const now = new Date();
@@ -2114,7 +2894,7 @@ body.light-mode .toast {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Mode clair/sombre avec nouvelle icône
+    // Mode clair/sombre
     const toggleMode = document.getElementById('toggle-mode');
     let isLight = false;
     
@@ -2122,7 +2902,6 @@ body.light-mode .toast {
       isLight = !isLight;
       document.body.classList.toggle('light-mode', isLight);
       
-      // Petit effet de rebond
       toggleMode.style.transform = 'scale(0.9)';
       setTimeout(() => {
         toggleMode.style.transform = 'scale(1.05)';
@@ -2132,7 +2911,7 @@ body.light-mode .toast {
       }, 100);
     });
 
-    // Message de salutation dynamique
+    // Message de salutation
     function updateGreeting() {
       const h = new Date().getHours();
       let msg = '';
@@ -2145,13 +2924,15 @@ body.light-mode .toast {
     updateGreeting();
     setInterval(updateGreeting, 60*1000);
 
-    // Navigation active state avec indicateur animé
+    // Navigation active state
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
     const navIndicator = document.getElementById('nav-indicator');
     const topNav = document.querySelector('.topnav');
 
     function updateNav() {
+      if (!hasScrolled) return;
+      
       let current = '';
       let activeLink = null;
       
@@ -2170,7 +2951,6 @@ body.light-mode .toast {
         }
       });
       
-      // Déplacer l'indicateur sous le lien actif
       if (activeLink && navIndicator) {
         const parentRect = activeLink.parentElement.getBoundingClientRect();
         const linkRect = activeLink.getBoundingClientRect();
@@ -2181,7 +2961,6 @@ body.light-mode .toast {
         navIndicator.classList.remove('visible');
       }
       
-      // Effet de scroll sur la navbar
       if (window.scrollY > 100) {
         topNav.classList.add('scrolled');
       } else {
@@ -2189,35 +2968,57 @@ body.light-mode .toast {
       }
     }
 
-    window.addEventListener('scroll', updateNav);
+    window.addEventListener('scroll', updateNav, { passive: true });
     window.addEventListener('resize', updateNav);
     updateNav();
 
-    // Smooth scroll avec petit bounce
+    // Smooth scroll
     navLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop - 80,
-            behavior: 'smooth'
-          });
-          
-          // Petit effet sur le lien cliqué
-          link.style.transform = 'scale(0.95)';
+        
+        if (!hasScrolled) {
+          scrollToContent();
           setTimeout(() => {
-            link.style.transform = '';
-          }, 200);
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+              window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: 'smooth'
+              });
+            }
+          }, 700);
+        } else {
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
         }
+        
+        link.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          link.style.transform = '';
+        }, 200);
       });
+    });
+
+    // Brand link to scroll to top or show landing
+    document.querySelector('.brand').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // Back to top
     const backToTop = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
-      backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
-    });
+      if (hasScrolled) {
+        backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+      }
+    }, { passive: true });
+    
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -2227,7 +3028,6 @@ body.light-mode .toast {
       const desc = document.getElementById('desc-' + id);
       const icon = document.getElementById('toggle-' + id);
       
-      // Close all others
       document.querySelectorAll('.education-description').forEach(d => {
         if (d.id !== 'desc-' + id) {
           d.classList.remove('open');
@@ -2239,28 +3039,46 @@ body.light-mode .toast {
         }
       });
       
-      // Toggle current
       desc.classList.toggle('open');
       icon.classList.toggle('rotated');
     }
-// Copier l'email au clic
-function copyEmail() {
-  navigator.clipboard.writeText('schwartz.th@proton.me').then(() => {
-    const toast = document.getElementById('toast');
-    const currentLang = document.documentElement.getAttribute('data-lang') || 'fr';
-    toast.textContent = currentLang === 'fr' ? 'Email copié !' : 'Email copied!';
-    toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2000);
-  }).catch(err => {
-    console.error('Erreur copie:', err);
-  });
-}
 
+    // Copy email
+    function copyEmail() {
+      navigator.clipboard.writeText('schwartz.th@proton.me').then(() => {
+        const toast = document.getElementById('toast');
+        toast.textContent = 'Email copié !';
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2000);
+      }).catch(err => {
+        console.error('Erreur copie:', err);
+      });
+    }
+
+    // Prevent iOS bounce scroll on landing page
+    if (isMobile) {
+      let startY;
+      const landingPage = document.getElementById('landingPage');
+      
+      landingPage.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].pageY;
+      }, { passive: false });
+      
+      landingPage.addEventListener('touchmove', (e) => {
+        if (!hasScrolled) {
+          const currentY = e.touches[0].pageY;
+          // Allow scrolling down to trigger content reveal
+          if (currentY < startY) {
+            // Scrolling down - allow it
+            return;
+          }
+          // Prevent scrolling up on landing page
+          e.preventDefault();
+        }
+      }, { passive: false });
+    }
   </script>
-
 </body>
-</html> 
-</body>
-
+</html>
