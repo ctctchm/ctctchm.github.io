@@ -32,7 +32,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
     <!-- Landing Page -->
-    <div class="landing-page" id="landingPage" onclick="scrollToContent()">
+    <div class="landing-page" id="landingPage" data-scroll-trigger>
       <div class="landing-content">
         <div class="landing-profile-wrapper">
           <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="landing-profile-picture">
@@ -47,7 +47,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Building security tools that solve real problems. Fascinated by failure modes ; how systems break, how networks fail, how assumptions crumble.
         </p>
       </div>
-      <div class="scroll-indicator" onclick="scrollToContent()">
+      <div class="scroll-indicator" data-scroll-trigger>
         <span class="scroll-indicator-text">Cliquez n'importe où</span>
         <div class="scroll-indicator-icon"></div>
       </div>
@@ -335,7 +335,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="education-timeline">
             <div class="education-card">
               <div class="education-content">
-                <div class="education-header" onclick="toggleEducation('lycee')">
+                <div class="education-header" data-education-toggle="lycee">
                   <div class="education-meta">
                     <span class="education-period">2023—2025</span>
                     <span class="education-separator">/</span>
@@ -389,7 +389,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="education-card">
               <div class="education-content">
-                <div class="education-header" onclick="toggleEducation('ipssi')">
+                <div class="education-header" data-education-toggle="ipssi">
                   <div class="education-meta">
                     <span class="education-period">2025—2028</span>
                     <span class="education-separator">/</span>
@@ -475,7 +475,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p>Feel free to reach out for any opportunity, collaboration, or question.</p>
           </div>
           <div class="contact-grid">
-            <div class="contact-card" onclick="copyEmail()" style="cursor: pointer;">
+            <div class="contact-card" data-copy-email style="cursor: pointer;">
               <div class="contact-icon">
                 <i class="fas fa-envelope"></i>
               </div>

@@ -38,6 +38,13 @@ function scrollToContent() {
   }, 100);
 }
 
+// Initialiser les event listeners pour scrollToContent
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-scroll-trigger]').forEach(element => {
+    element.addEventListener('click', scrollToContent);
+  });
+});
+
 // Auto-hide landing page on scroll
 let scrollTimeout;
 let lastScrollY = 0;
@@ -264,6 +271,16 @@ function toggleEducation(id) {
   desc.classList.toggle('open');
   icon.classList.toggle('rotated');
 }
+
+// Initialiser les event listeners pour les toggles d'éducation
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-education-toggle]').forEach(header => {
+    header.addEventListener('click', (e) => {
+      const id = header.getAttribute('data-education-toggle');
+      toggleEducation(id);
+    });
+  });
+});
 
 // Copy email
 function copyEmail() {
@@ -599,11 +616,12 @@ function animateValue(id, start, end, duration) {
 
 // Initialiser la révélation de l'email au chargement
 document.addEventListener('DOMContentLoaded', () => {
-  const emailCard = document.querySelector('.contact-card[onclick="copyEmail()"]');
+  const emailCard = document.querySelector('[data-copy-email]');
   const emailLink = document.getElementById('email-link');
   
   if (emailCard) {
     emailCard.addEventListener('mouseenter', revealEmail, { once: true });
+    emailCard.addEventListener('click', copyEmail);
   }
   
   if (emailLink) {
