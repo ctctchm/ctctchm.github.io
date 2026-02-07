@@ -1,6 +1,26 @@
 // Détection mobile
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+// Email obfuscation - Protection contre le harvesting
+const emailParts = ['schwartz.th', 'proton.me'];
+const emailAddress = emailParts[0] + '@' + emailParts[1];
+let emailRevealed = false;
+
+// Révéler l'email au premier hover/click (protection contre les bots)
+function revealEmail() {
+  if (!emailRevealed) {
+    const emailDisplay = document.getElementById('email-display');
+    const emailLink = document.getElementById('email-link');
+    if (emailDisplay) {
+      emailDisplay.textContent = emailAddress;
+    }
+    if (emailLink) {
+      emailLink.href = 'mailto:' + emailAddress;
+    }
+    emailRevealed = true;
+  }
+}
+
 // Landing page logic
 let hasScrolled = false;
 
@@ -247,7 +267,8 @@ function toggleEducation(id) {
 
 // Copy email
 function copyEmail() {
-  navigator.clipboard.writeText('schwartz.th@proton.me').then(() => {
+  revealEmail(); // Révèle l'email avant de copier
+  navigator.clipboard.writeText(emailAddress).then(() => {
     const toast = document.getElementById('toast');
     toast.textContent = 'Email copié !';
     toast.classList.add('show');
@@ -256,6 +277,12 @@ function copyEmail() {
     }, 2000);
   }).catch(err => {
     console.error('Erreur copie:', err);
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Erreur lors de la copie';
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2000);
   });
 }
 
@@ -296,83 +323,134 @@ async function generateContributionGraph() {
     return;
   }
   
+  // Rate limiting et cache
+  const cacheKey = 'github_contributions_cache';
+  const cacheTimeKey = 'github_contributions_time';
+  const cacheExpiry = 3600000; // 1 heure
+  
+  // Vérifier le cache
+  const cachedData = localStorage.getItem(cacheKey);
+  const cachedTime = localStorage.getItem(cacheTimeKey);
+  
+  if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < cacheExpiry) {
+    console.log('Using cached data');
+    renderContributions(JSON.parse(cachedData));
+    return;
+  }
+  
   try {
     const username = 'ctctchm';
     console.log('Fetching data for:', username);
     
-    // Use GitHub contributions API
-    const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+    // Use GitHub contributions API avec timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+    
+    const response = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/${username}?y=last`,
+      { 
+        signal: controller.signal,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+    clearTimeout(timeoutId);
+    
     console.log('Response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
     console.log('Data received:', data);
     
     if (!data || !data.contributions) {
-      throw new Error('No data');
+      throw new Error('Invalid data structure');
     }
     
-    const contributions = data.contributions;
-    // Fix: data.total is an object like {lastYear: 32}
-    let total = 0;
-    if (data.total && typeof data.total === 'object') {
-      total = data.total.lastYear || 0;
-    } else if (typeof data.total === 'number') {
-      total = data.total;
-    }
+    // Sauvegarder en cache
+    localStorage.setItem(cacheKey, JSON.stringify(data));
+    localStorage.setItem(cacheTimeKey, Date.now().toString());
     
-    // Update count
-    const year = new Date().getFullYear();
-    if (countEl) {
-      countEl.textContent = `${total} contribution${total !== 1 ? 's' : ''} in ${year}`;
-    }
-    
-    // Generate months
-    if (months) {
-      months.innerHTML = ''; // Clear existing
-      const weeks = Math.ceil(contributions.length / 7);
-      let lastMonth = '';
-      let monthPosition = 0;
-      
-      for (let weekIdx = 0; weekIdx < weeks; weekIdx++) {
-        const dayIdx = weekIdx * 7;
-        if (dayIdx >= contributions.length) break;
-        
-        const date = new Date(contributions[dayIdx].date);
-        const month = date.toLocaleDateString('en-US', { month: 'short' });
-        
-        if (month !== lastMonth) {
-          const label = document.createElement('span');
-          label.className = 'month-label';
-          label.textContent = month;
-          label.style.left = (weekIdx * 13) + 'px'; // 10px cell + 3px gap
-          months.appendChild(label);
-          lastMonth = month;
-        }
-      }
-    }
-    
-    // Generate grid
-    contributions.forEach(day => {
-      const cell = document.createElement('div');
-      cell.className = `calendar-day level-${day.level}`;
-      
-      const date = new Date(day.date);
-      const dateStr = date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric' 
-      });
-      
-      cell.title = `${day.count} contribution${day.count !== 1 ? 's' : ''} on ${dateStr}`;
-      grid.appendChild(cell);
-    });
+    renderContributions(data);
     
   } catch (error) {
     console.error('Error loading contributions:', error);
     if (countEl) {
-      countEl.textContent = 'Unable to load contributions';
+      if (error.name === 'AbortError') {
+        countEl.textContent = 'Request timeout - please refresh';
+      } else {
+        countEl.textContent = 'Unable to load contributions';
+      }
+    }
+    // Ne pas exposer les détails de l'erreur à l'utilisateur
+  }
+}
+
+// Fonction de rendu séparée pour réutilisation avec le cache
+function renderContributions(data) {
+  const grid = document.getElementById('calendar-grid');
+  const months = document.getElementById('calendar-months');
+  const countEl = document.getElementById('calendar-count');
+  
+  const contributions = data.contributions;
+  // Fix: data.total is an object like {lastYear: 32}
+  let total = 0;
+  if (data.total && typeof data.total === 'object') {
+    total = data.total.lastYear || 0;
+  } else if (typeof data.total === 'number') {
+    total = data.total;
+  }
+  
+  // Update count
+  const year = new Date().getFullYear();
+  if (countEl) {
+    countEl.textContent = `${total} contribution${total !== 1 ? 's' : ''} in ${year}`;
+  }
+  
+  // Generate months
+  if (months) {
+    months.innerHTML = ''; // Clear existing
+    const weeks = Math.ceil(contributions.length / 7);
+    let lastMonth = '';
+    
+    for (let weekIdx = 0; weekIdx < weeks; weekIdx++) {
+      const dayIdx = weekIdx * 7;
+      if (dayIdx >= contributions.length) break;
+      
+      const date = new Date(contributions[dayIdx].date);
+      const month = date.toLocaleDateString('en-US', { month: 'short' });
+      
+      if (month !== lastMonth) {
+        const label = document.createElement('span');
+        label.className = 'month-label';
+        label.textContent = month;
+        label.style.left = (weekIdx * 13) + 'px'; // 10px cell + 3px gap
+        months.appendChild(label);
+        lastMonth = month;
+      }
     }
   }
+  
+  // Generate grid - Sanitize data
+  contributions.forEach(day => {
+    const cell = document.createElement('div');
+    cell.className = `calendar-day level-${Math.min(Math.max(day.level || 0, 0), 4)}`; // Limite 0-4
+    
+    const date = new Date(day.date);
+    const dateStr = date.toLocaleDateString('en-US', { 
+      weekday: 'short', 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+    
+    const count = Math.max(day.count || 0, 0); // Assurer que c'est un nombre positif
+    cell.title = `${count} contribution${count !== 1 ? 's' : ''} on ${dateStr}`;
+    grid.appendChild(cell);
+  });
 }
 
 // Initialize - Wait for DOM to be ready
@@ -386,37 +464,105 @@ if (document.readyState === 'loading') {
 
 // Fetch real GitHub stats
 async function updateGitHubStats() {
+  // Rate limiting et cache
+  const cacheKey = 'github_stats_cache';
+  const cacheTimeKey = 'github_stats_time';
+  const cacheExpiry = 3600000; // 1 heure
+  
+  const cachedData = localStorage.getItem(cacheKey);
+  const cachedTime = localStorage.getItem(cacheTimeKey);
+  
+  if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < cacheExpiry) {
+    const stats = JSON.parse(cachedData);
+    animateValue('total-repos', 0, stats.repos, 1000);
+    animateValue('total-commits', 0, stats.commits, 1200);
+    animateValue('total-prs', 0, stats.prs, 1400);
+    animateValue('total-issues', 0, stats.issues, 1600);
+    return;
+  }
+  
   try {
     const username = 'ctctchm';
     
+    // Timeout pour les requêtes
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
     // Fetch user data
-    const userResponse = await fetch(`https://api.github.com/users/${username}`);
+    const userResponse = await fetch(`https://api.github.com/users/${username}`, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (!userResponse.ok) {
+      throw new Error(`HTTP error! status: ${userResponse.status}`);
+    }
+    
     const userData = await userResponse.json();
     
     // Fetch repositories
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (!reposResponse.ok) {
+      throw new Error(`HTTP error! status: ${reposResponse.status}`);
+    }
+    
     const repos = await reposResponse.json();
     
     // Fetch events for commits, PRs, issues
-    const eventsResponse = await fetch(`https://api.github.com/users/${username}/events/public?per_page=100`);
+    const eventsResponse = await fetch(`https://api.github.com/users/${username}/events/public?per_page=100`, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!eventsResponse.ok) {
+      throw new Error(`HTTP error! status: ${eventsResponse.status}`);
+    }
+    
     const events = await eventsResponse.json();
     
-    // Count stats
-    const totalRepos = userData.public_repos || 0;
+    // Count stats avec validation
+    const totalRepos = Math.max(userData.public_repos || 0, 0);
     
     let totalCommits = 0;
     let totalPRs = 0;
     let totalIssues = 0;
     
-    events.forEach(event => {
-      if (event.type === 'PushEvent') {
-        totalCommits += event.payload.commits ? event.payload.commits.length : 0;
-      } else if (event.type === 'PullRequestEvent') {
-        totalPRs++;
-      } else if (event.type === 'IssuesEvent') {
-        totalIssues++;
-      }
-    });
+    if (Array.isArray(events)) {
+      events.forEach(event => {
+        if (event && event.type) {
+          if (event.type === 'PushEvent' && event.payload && event.payload.commits) {
+            totalCommits += Math.max(event.payload.commits.length || 0, 0);
+          } else if (event.type === 'PullRequestEvent') {
+            totalPRs++;
+          } else if (event.type === 'IssuesEvent') {
+            totalIssues++;
+          }
+        }
+      });
+    }
+    
+    const stats = {
+      repos: totalRepos,
+      commits: totalCommits,
+      prs: totalPRs,
+      issues: totalIssues
+    };
+    
+    // Sauvegarder en cache
+    localStorage.setItem(cacheKey, JSON.stringify(stats));
+    localStorage.setItem(cacheTimeKey, Date.now().toString());
     
     // Update UI with animation
     animateValue('total-repos', 0, totalRepos, 1000);
@@ -426,7 +572,7 @@ async function updateGitHubStats() {
     
   } catch (error) {
     console.error('Error fetching GitHub stats:', error);
-    // Keep placeholder values on error
+    // Ne pas exposer les détails de l'erreur - garder les valeurs placeholder
   }
 }
 
@@ -450,3 +596,23 @@ function animateValue(id, start, end, duration) {
 }
 
 // Initialize GitHub widget - already initialized above, removing duplicate
+
+// Initialiser la révélation de l'email au chargement
+document.addEventListener('DOMContentLoaded', () => {
+  const emailCard = document.querySelector('.contact-card[onclick="copyEmail()"]');
+  const emailLink = document.getElementById('email-link');
+  
+  if (emailCard) {
+    emailCard.addEventListener('mouseenter', revealEmail, { once: true });
+  }
+  
+  if (emailLink) {
+    emailLink.addEventListener('mouseenter', revealEmail, { once: true });
+    emailLink.addEventListener('click', (e) => {
+      if (!emailRevealed) {
+        e.preventDefault();
+        revealEmail();
+      }
+    });
+  }
+});
