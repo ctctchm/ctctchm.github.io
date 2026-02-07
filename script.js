@@ -1,6 +1,15 @@
 // Détection mobile
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+// Calculer le temps de chargement
+window.addEventListener('load', () => {
+  const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+  const loadTimeEl = document.getElementById('load-time');
+  if (loadTimeEl) {
+    loadTimeEl.textContent = loadTime + 'ms';
+  }
+});
+
 // Email obfuscation - Protection contre le harvesting
 const emailParts = ['schwartz.th', 'proton.me'];
 const emailAddress = emailParts[0] + '@' + emailParts[1];
@@ -633,4 +642,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  
+  // Rendre les skills cliquables vers Wikipedia
+  const skills = document.querySelectorAll('.skill[data-wiki-url]');
+  console.log('Found skills:', skills.length);
+  
+  skills.forEach(skill => {
+    skill.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = skill.getAttribute('data-wiki-url');
+      console.log('Clicked skill, URL:', url);
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    });
+    // Visual feedback
+    skill.style.cursor = 'pointer';
+  });
 });
