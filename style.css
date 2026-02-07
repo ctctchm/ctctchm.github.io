@@ -31,6 +31,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: opacity 0.6s ease, visibility 0.6s ease;
+  cursor: pointer;
 }
 
 .landing-page.hidden {
@@ -1048,6 +1049,594 @@ section:nth-child(6) { animation-delay: 0.6s; }
   font-style: italic;
 }
 
+/* Contributions Section - GitHub Widget */
+.github-widget {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 32px;
+}
+
+body.light-mode .github-widget {
+  background: transparent;
+  border-color: transparent;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+body.light-mode .widget-header {
+  border-bottom-color: #e2e8f0;
+}
+
+.widget-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+body.light-mode .widget-title {
+  color: #0f172a;
+}
+
+.widget-title i {
+  font-size: 20px;
+}
+
+.widget-link {
+  color: #999;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.widget-link:hover {
+  color: #fff;
+}
+
+body.light-mode .widget-link {
+  color: #64748b;
+}
+
+body.light-mode .widget-link:hover {
+  color: #4f46e5;
+}
+
+.widget-link i {
+  font-size: 12px;
+}
+
+.github-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-box {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+body.light-mode .stat-box {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.stat-box:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+body.light-mode .stat-box:hover {
+  border-color: #cbd5e1;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  font-feature-settings: 'tnum';
+}
+
+body.light-mode .stat-number {
+  color: #0f172a;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+body.light-mode .stat-label {
+  color: #94a3b8;
+}
+
+.contribution-graph {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.graph-months {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  margin-bottom: 8px;
+  padding-left: 32px;
+  font-size: 11px;
+  color: #666;
+}
+
+body.light-mode .graph-months {
+  color: #94a3b8;
+}
+
+.month-label {
+  text-align: left;
+}
+
+.graph-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.graph-days {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 0;
+  font-size: 10px;
+  color: #666;
+  gap: 4px;
+}
+
+body.light-mode .graph-days {
+  color: #94a3b8;
+}
+
+.day-label {
+  height: 11px;
+  line-height: 11px;
+  display: block;
+}
+
+.graph-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #666;
+}
+
+body.light-mode .graph-legend {
+  color: #94a3b8;
+}
+
+.legend-colors {
+  display: flex;
+  gap: 3px;
+}
+
+.legend-box {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode .legend-box {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.legend-box.level-0 {
+  background: #1e1e1e;
+}
+
+body.light-mode .legend-box.level-0 {
+  background: #ebedf0;
+}
+
+.legend-box.level-1 {
+  background: #0e4429;
+}
+
+body.light-mode .legend-box.level-1 {
+  background: #9be9a8;
+}
+
+.legend-box.level-2 {
+  background: #006d32;
+}
+
+body.light-mode .legend-box.level-2 {
+  background: #40c463;
+}
+
+.legend-box.level-3 {
+  background: #26a641;
+}
+
+body.light-mode .legend-box.level-3 {
+  background: #30a14e;
+}
+
+.legend-box.level-4 {
+  background: #39d353;
+}
+
+body.light-mode .legend-box.level-4 {
+  background: #216e39;
+}
+
+.graph-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 11px);
+  gap: 3px;
+  overflow-x: visible;
+  padding: 4px 0;
+}
+
+.graph-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.light-mode .graph-footer {
+  border-top-color: #e2e8f0;
+}
+
+.contribution-count {
+  font-size: 12px;
+  color: #999;
+}
+
+body.light-mode .contribution-count {
+  color: #64748b;
+}
+
+.contribution-day {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+body.light-mode .contribution-day {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.contribution-day:hover {
+  transform: scale(1.3);
+  z-index: 1;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+body.light-mode .contribution-day:hover {
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+}
+
+.contribution-day.level-0 {
+  background: #1e1e1e;
+}
+
+body.light-mode .contribution-day.level-0 {
+  background: #ebedf0;
+}
+
+.contribution-day.level-1 {
+  background: #0e4429;
+}
+
+body.light-mode .contribution-day.level-1 {
+  background: #9be9a8;
+}
+
+.contribution-day.level-2 {
+  background: #006d32;
+}
+
+body.light-mode .contribution-day.level-2 {
+  background: #40c463;
+}
+
+.contribution-day.level-3 {
+  background: #26a641;
+}
+
+body.light-mode .contribution-day.level-3 {
+  background: #30a14e;
+}
+
+.contribution-day.level-4 {
+  background: #39d353;
+}
+
+body.light-mode .contribution-day.level-4 {
+  background: #216e39;
+}
+
+@media (max-width: 768px) {
+  .github-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+  }
+  
+  .graph-container {
+    grid-template-columns: repeat(53, 10px);
+    gap: 2px;
+  }
+  
+  .contribution-day {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .legend-box {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Contributions Section */
+.github-contributions {
+  margin-top: 32px;
+}
+
+.contributions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.light-mode .contributions-header {
+  border-bottom-color: #e2e8f0;
+}
+
+.contributions-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+body.light-mode .contributions-title {
+  color: #0f172a;
+}
+
+.contributions-title i {
+  font-size: 18px;
+}
+
+.contributions-link {
+  color: #999;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contributions-link:hover {
+  color: #fff;
+}
+
+body.light-mode .contributions-link {
+  color: #64748b;
+}
+
+body.light-mode .contributions-link:hover {
+  color: #4f46e5;
+}
+
+.contributions-calendar {
+  background: transparent;
+  padding: 0;
+}
+
+.calendar-months {
+  display: flex;
+  gap: 0;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: #7d8590;
+}
+
+body.light-mode .calendar-months {
+  color: #57606a;
+}
+
+.month-label {
+  flex: 1;
+  text-align: left;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 11px);
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.calendar-day {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-day:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 0;
+}
+
+body.light-mode .calendar-day:hover {
+  outline-color: rgba(79, 70, 229, 0.5);
+}
+
+.calendar-day.level-0 {
+  background: #161b22;
+}
+
+body.light-mode .calendar-day.level-0 {
+  background: #ebedf0;
+}
+
+.calendar-day.level-1 {
+  background: #0e4429;
+}
+
+body.light-mode .calendar-day.level-1 {
+  background: #9be9a8;
+}
+
+.calendar-day.level-2 {
+  background: #006d32;
+}
+
+body.light-mode .calendar-day.level-2 {
+  background: #40c463;
+}
+
+.calendar-day.level-3 {
+  background: #26a641;
+}
+
+body.light-mode .calendar-day.level-3 {
+  background: #30a14e;
+}
+
+.calendar-day.level-4 {
+  background: #39d353;
+}
+
+body.light-mode .calendar-day.level-4 {
+  background: #216e39;
+}
+
+.calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #7d8590;
+}
+
+body.light-mode .calendar-footer {
+  color: #57606a;
+}
+
+.calendar-count {
+  font-size: 12px;
+}
+
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-colors {
+  display: flex;
+  gap: 2px;
+}
+
+.legend-level {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-level.level-0 {
+  background: #161b22;
+}
+
+body.light-mode .legend-level.level-0 {
+  background: #ebedf0;
+}
+
+.legend-level.level-1 {
+  background: #0e4429;
+}
+
+body.light-mode .legend-level.level-1 {
+  background: #9be9a8;
+}
+
+.legend-level.level-2 {
+  background: #006d32;
+}
+
+body.light-mode .legend-level.level-2 {
+  background: #40c463;
+}
+
+.legend-level.level-3 {
+  background: #26a641;
+}
+
+body.light-mode .legend-level.level-3 {
+  background: #30a14e;
+}
+
+.legend-level.level-4 {
+  background: #39d353;
+}
+
+body.light-mode .legend-level.level-4 {
+  background: #216e39;
+}
+
+@media (max-width: 768px) {
+  .calendar-grid {
+    grid-template-rows: repeat(7, 10px);
+    gap: 2px;
+  }
+  
+  .calendar-day {
+    width: 10px;
+    height: 10px;
+  }
+}
+
 /* Projects */
 .project {
   position: relative;
@@ -1548,10 +2137,6 @@ section:nth-child(6) { animation-delay: 0.6s; }
     rgba(50, 47, 62, 0.12) 0%, 
     rgba(50, 47, 62, 0.06) 100%
   );
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(50, 47, 62, 0.2);
 }
 
 .platform-icon {
@@ -1569,7 +2154,6 @@ section:nth-child(6) { animation-delay: 0.6s; }
 }
 
 .platform:hover .platform-icon {
-  transform: scale(1.1) rotate(5deg);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -1578,11 +2162,27 @@ section:nth-child(6) { animation-delay: 0.6s; }
   height: 100%;
   object-fit: contain;
   filter: brightness(0.9);
-  transition: filter 0.3s ease;
+}
+
+.platform-icon i {
+  font-size: 14px;
+  color: #999;
 }
 
 .platform:hover .platform-icon img {
-  filter: brightness(1.1);
+  filter: brightness(1);
+}
+
+.platform:hover .platform-icon i {
+  color: #ccc;
+}
+
+.rootme-icon {
+  background: #c93030 !important;
+}
+
+.rootme-icon i {
+  color: #fff !important;
 }
 
 .platform-name {

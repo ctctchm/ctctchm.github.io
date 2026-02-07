@@ -69,6 +69,18 @@ document.addEventListener('touchend', (e) => {
   }
 }, { passive: true });
 
+// Click anywhere on landing page to continue
+document.addEventListener('DOMContentLoaded', () => {
+  const landingPage = document.getElementById('landingPage');
+  if (landingPage) {
+    landingPage.addEventListener('click', () => {
+      if (!hasScrolled) {
+        scrollToContent();
+      }
+    });
+  }
+});
+
 // Clock
 function updateClock() {
   const now = new Date();
@@ -269,3 +281,172 @@ if (isMobile) {
     }
   }, { passive: false });
 }
+
+// Generate GitHub contribution graph
+async function generateContributionGraph() {
+  console.log('Starting generateContributionGraph...');
+  const grid = document.getElementById('calendar-grid');
+  const months = document.getElementById('calendar-months');
+  const countEl = document.getElementById('calendar-count');
+  
+  console.log('Elements found:', { grid: !!grid, months: !!months, countEl: !!countEl });
+  
+  if (!grid) {
+    console.error('Calendar grid not found');
+    return;
+  }
+  
+  try {
+    const username = 'ctctchm';
+    console.log('Fetching data for:', username);
+    
+    // Use GitHub contributions API
+    const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+    console.log('Response status:', response.status);
+    const data = await response.json();
+    console.log('Data received:', data);
+    
+    if (!data || !data.contributions) {
+      throw new Error('No data');
+    }
+    
+    const contributions = data.contributions;
+    // Fix: data.total is an object like {lastYear: 32}
+    let total = 0;
+    if (data.total && typeof data.total === 'object') {
+      total = data.total.lastYear || 0;
+    } else if (typeof data.total === 'number') {
+      total = data.total;
+    }
+    
+    // Update count
+    const year = new Date().getFullYear();
+    if (countEl) {
+      countEl.textContent = `${total} contribution${total !== 1 ? 's' : ''} in ${year}`;
+    }
+    
+    // Generate months
+    if (months) {
+      months.innerHTML = ''; // Clear existing
+      const weeks = Math.ceil(contributions.length / 7);
+      let lastMonth = '';
+      let monthPosition = 0;
+      
+      for (let weekIdx = 0; weekIdx < weeks; weekIdx++) {
+        const dayIdx = weekIdx * 7;
+        if (dayIdx >= contributions.length) break;
+        
+        const date = new Date(contributions[dayIdx].date);
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        
+        if (month !== lastMonth) {
+          const label = document.createElement('span');
+          label.className = 'month-label';
+          label.textContent = month;
+          label.style.left = (weekIdx * 13) + 'px'; // 10px cell + 3px gap
+          months.appendChild(label);
+          lastMonth = month;
+        }
+      }
+    }
+    
+    // Generate grid
+    contributions.forEach(day => {
+      const cell = document.createElement('div');
+      cell.className = `calendar-day level-${day.level}`;
+      
+      const date = new Date(day.date);
+      const dateStr = date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      
+      cell.title = `${day.count} contribution${day.count !== 1 ? 's' : ''} on ${dateStr}`;
+      grid.appendChild(cell);
+    });
+    
+  } catch (error) {
+    console.error('Error loading contributions:', error);
+    if (countEl) {
+      countEl.textContent = 'Unable to load contributions';
+    }
+  }
+}
+
+// Initialize - Wait for DOM to be ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    generateContributionGraph().catch(err => console.error('Error in generateContributionGraph:', err));
+  });
+} else {
+  generateContributionGraph().catch(err => console.error('Error in generateContributionGraph:', err));
+}
+
+// Fetch real GitHub stats
+async function updateGitHubStats() {
+  try {
+    const username = 'ctctchm';
+    
+    // Fetch user data
+    const userResponse = await fetch(`https://api.github.com/users/${username}`);
+    const userData = await userResponse.json();
+    
+    // Fetch repositories
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+    const repos = await reposResponse.json();
+    
+    // Fetch events for commits, PRs, issues
+    const eventsResponse = await fetch(`https://api.github.com/users/${username}/events/public?per_page=100`);
+    const events = await eventsResponse.json();
+    
+    // Count stats
+    const totalRepos = userData.public_repos || 0;
+    
+    let totalCommits = 0;
+    let totalPRs = 0;
+    let totalIssues = 0;
+    
+    events.forEach(event => {
+      if (event.type === 'PushEvent') {
+        totalCommits += event.payload.commits ? event.payload.commits.length : 0;
+      } else if (event.type === 'PullRequestEvent') {
+        totalPRs++;
+      } else if (event.type === 'IssuesEvent') {
+        totalIssues++;
+      }
+    });
+    
+    // Update UI with animation
+    animateValue('total-repos', 0, totalRepos, 1000);
+    animateValue('total-commits', 0, totalCommits, 1200);
+    animateValue('total-prs', 0, totalPRs, 1400);
+    animateValue('total-issues', 0, totalIssues, 1600);
+    
+  } catch (error) {
+    console.error('Error fetching GitHub stats:', error);
+    // Keep placeholder values on error
+  }
+}
+
+// Animate number counting
+function animateValue(id, start, end, duration) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  
+  const range = end - start;
+  const increment = range / (duration / 16);
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+      current = end;
+      clearInterval(timer);
+    }
+    element.textContent = Math.floor(current);
+  }, 16);
+}
+
+// Initialize GitHub widget - already initialized above, removing duplicate

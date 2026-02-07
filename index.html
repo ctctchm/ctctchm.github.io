@@ -18,6 +18,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="contributions.css">
 </head>
 
 <body>
@@ -26,13 +27,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTD98998"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
- 
-    </style>
-  </head>
 
-  <body>
     <!-- Landing Page -->
-    <div class="landing-page" id="landingPage">
+    <div class="landing-page" id="landingPage" onclick="scrollToContent()">
       <div class="landing-content">
         <div class="landing-profile-wrapper">
           <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="landing-profile-picture">
@@ -48,7 +45,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </p>
       </div>
       <div class="scroll-indicator" onclick="scrollToContent()">
-        <span class="scroll-indicator-text">Scroll</span>
+        <span class="scroll-indicator-text">Cliquez n'importe où</span>
         <div class="scroll-indicator-icon"></div>
       </div>
     </div>
@@ -72,6 +69,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="#skills" class="nav-link" title="Skills"><i class="fas fa-brain"></i></a>
           <a href="#certifications" class="nav-link" title="Certifications"><i class="fas fa-award"></i></a>
           <a href="#projects" class="nav-link" title="Projects"><i class="fas fa-lightbulb"></i></a>
+          <a href="#contributions" class="nav-link" title="Contributions"><i class="fas fa-code-branch"></i></a>
           <a href="#education" class="nav-link" title="Education"><i class="fas fa-university"></i></a>
           <a href="#contact" class="nav-link" title="Contact"><i class="fas fa-meteor"></i></a>
         </div>
@@ -289,6 +287,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
         </section>
 
+        <!-- Contributions -->
+        <section id="contributions">
+          <h2>Contributions</h2>
+          <div class="github-contributions">
+            <div class="contributions-header">
+              <div class="contributions-title">
+                <i class="fab fa-github"></i>
+                <span>GitHub Activity</span>
+              </div>
+              <a href="https://github.com/ctctchm" target="_blank" class="contributions-link">
+                @ctctchm <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+            <div class="contributions-calendar">
+              <div class="calendar-months" id="calendar-months"></div>
+              <div class="calendar-wrapper">
+                <div class="calendar-days">
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+              </div>
+              <div class="calendar-footer">
+                <span class="calendar-count" id="calendar-count">Loading...</span>
+                <div class="calendar-legend">
+                  <span>Less</span>
+                  <div class="legend-colors">
+                    <span class="legend-level level-0"></span>
+                    <span class="legend-level level-1"></span>
+                    <span class="legend-level level-2"></span>
+                    <span class="legend-level level-3"></span>
+                    <span class="legend-level level-4"></span>
+                  </div>
+                  <span>More</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Education -->
         <section id="education">
           <h2>Education</h2>
@@ -306,40 +342,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     Lycée Lachenal
                     <i class="fas fa-chevron-down toggle-icon" id="toggle-lycee"></i>
                   </h3>
-                  <p class="education-subtitle">Baccalauréat NSI · Sciences de l'Ingénieur</p>
+                  <p class="education-subtitle">Baccalauréat NSI · Engineering Sciences</p>
                   <div class="education-tags">
-                    <span class="education-tag">Informatique</span>
-                    <span class="education-tag">Systèmes</span>
+                    <span class="education-tag">Computer Science</span>
+                    <span class="education-tag">Systems</span>
                   </div>
                 </div>
                 <div class="education-description" id="desc-lycee">
                   <div class="description-content">
-                    <p class="main-description">Systems thinking — comprendre l'interaction, la cascade, la faille. Fondations d'ingénierie — résoudre à l'échelle structurelle. Électronique & systèmes numériques — la théorie rencontre la réalité physique.</p>
+                    <p class="main-description">Systems thinking — understanding interaction, cascade, failure. Engineering foundations — solving at structural scale. Electronics & digital systems — theory meets physical reality.</p>
                     <div class="info-grid">
                       <div class="info-card">
-                        <h5>Formation</h5>
+                        <h5>Program</h5>
                         <ul>
-                          <li>Baccalauréat Général</li>
-                          <li>Spécialité: SIN</li>
+                          <li>General Baccalauréat</li>
+                          <li>Specialty: SIN</li>
                           <li>Annecy, France</li>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Matières</h5>
+                        <h5>Subjects</h5>
                         <ul>
-                          <li>Numérique et Sciences Informatiques</li>
-                          <li>Mathématiques</li>
-                          <li>Sciences de l'Ingénieur</li>
-                          <li>Physique-Chimie</li>
+                          <li>Computer & Digital Sciences</li>
+                          <li>Mathematics</li>
+                          <li>Engineering Sciences</li>
+                          <li>Physics-Chemistry</li>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Projets</h5>
+                        <h5>Projects</h5>
                         <ul>
-                          <li>Réseaux de capteurs IoT</li>
-                          <li>Systèmes embarqués Linux</li>
-                          <li>Protocoles réseau</li>
-                          <li>Automatisation industrielle</li>
+                          <li>IoT sensor networks</li>
+                          <li>Embedded Linux systems</li>
+                          <li>Network protocols</li>
+                          <li>Industrial automation</li>
                         </ul>
                       </div>
                     </div>
@@ -360,37 +396,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     IPSSI — Bachelor Cybersecurity
                     <i class="fas fa-chevron-down toggle-icon" id="toggle-ipssi"></i>
                   </h3>
-                  <p class="education-subtitle">Sécurité offensive · Architecture systèmes</p>
+                  <p class="education-subtitle">Offensive security · System architecture</p>
                   <div class="education-tags">
-                    <span class="education-tag">Année 1</span>
-                    <span class="education-tag">En cours</span>
+                    <span class="education-tag">Year 1</span>
+                    <span class="education-tag">In progress</span>
                   </div>
                 </div>
                 <div class="education-description" id="desc-ipssi">
                   <div class="description-content">
-                    <p class="main-description">Architecture systèmes — comprendre la machine à attaquer. Protocoles & sécurité réseau — comment l'internet échoue. Sécurité offensive — penser comme un attaquant.</p>
+                    <p class="main-description">System architecture — understanding the machine to attack. Protocols & network security — how the internet fails. Offensive security — thinking like an attacker.</p>
                     <div class="info-grid">
                       <div class="info-card">
-                        <h5>Formation</h5>
+                        <h5>Program</h5>
                         <ul>
-                          <li>Bachelor Cybersécurité</li>
-                          <li>Année 1 (2025-2026)</li>
-                          <li>Fin prévue: 2028</li>
+                          <li>Bachelor Cybersecurity</li>
+                          <li>Year 1 (2025-2026)</li>
+                          <li>Expected end: 2028</li>
                           <li>Paris, France</li>
                         </ul>
                       </div>
                       <div class="info-card">
                         <h5>Modules</h5>
                         <ul>
-                          <li>Architecture des systèmes</li>
-                          <li>Protocoles & sécurité réseau</li>
-                          <li>Sécurité offensive</li>
-                          <li>Administration Linux</li>
-                          <li>Tests de pénétration</li>
+                          <li>System architecture</li>
+                          <li>Network protocols & security</li>
+                          <li>Offensive security</li>
+                          <li>Linux administration</li>
+                          <li>Penetration testing</li>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Outils</h5>
+                        <h5>Tools</h5>
                         <ul>
                           <li>Kali Linux, Metasploit</li>
                           <li>Burp Suite, Wireshark</li>
@@ -409,8 +445,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h3>Practice Platforms</h3>
             <div class="platforms-grid">
               <div class="platform">
-                <div class="platform-icon">
-                  <img src="https://www.root-me.org/IMG/logo_rouge.png" alt="Root-Me">
+                <div class="platform-icon rootme-icon">
+                  <i class="fas fa-terminal"></i>
                 </div>
                 <div class="platform-info">
                   <div class="platform-name">Root-Me</div>
@@ -433,7 +469,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h2>Contact</h2>
           <div class="contact-intro">
             <h3>Let's Connect</h3>
-            <p>N'hésitez pas à me contacter pour toute opportunité, collaboration ou question.</p>
+            <p>Feel free to reach out for any opportunity, collaboration, or question.</p>
           </div>
           <div class="contact-grid">
             <div class="contact-card" onclick="copyEmail()" style="cursor: pointer;">
@@ -442,7 +478,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
               <div class="contact-info">
                 <div class="contact-label">Email</div>
-                <div class="contact-value">schwartz.th@proton.me <br> <span class="contact-status">Réponse 24h</span></div>
+                <div class="contact-value">schwartz.th@proton.me <br> <span class="contact-status">24h response</span></div>
               </div>
             </div>
             <a href="https://github.com/ctctchm" target="_blank" class="contact-card">
@@ -494,6 +530,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </button>
   </div>
 
+  <script>
+    // Fonction inline pour garantir qu'elle est disponible immédiatement
+    function scrollToContent() {
+      const landingPage = document.getElementById('landingPage');
+      const mainContent = document.getElementById('mainContent');
+      
+      if (landingPage && mainContent) {
+        landingPage.classList.add('hidden');
+        mainContent.classList.add('visible');
+        
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
