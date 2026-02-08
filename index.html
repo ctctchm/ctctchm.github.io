@@ -18,6 +18,26 @@
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()">
   
   <title>Théo Schwartz</title>
+  
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="Théo Schwartz - Cybersecurity Portfolio">
+  <meta property="og:description" content="19 yo cybersecurity student building security tools that solve real problems. Paris, France.">
+  <meta property="og:image" content="https://ctctchm.github.io/pp.png">
+  <meta property="og:url" content="https://ctctchm.github.io">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Théo Schwartz - Cybersecurity Portfolio">
+  <meta name="twitter:description" content="19 yo cybersecurity student building security tools that solve real problems.">
+  <meta name="twitter:image" content="https://ctctchm.github.io/pp.png">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Portfolio of Théo Schwartz, cybersecurity student specializing in offensive security and penetration testing. Paris, France.">
+  <meta name="keywords" content="cybersecurity, penetration testing, security, portfolio, Paris, IPSSI">
+  <meta name="author" content="Théo Schwartz">
+  
   <link rel="icon" type="image/png" href="pp.png">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -31,6 +51,9 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Stars Background -->
+    <div class="stars-container" id="starsContainer"></div>
+
     <!-- Landing Page -->
     <div class="landing-page" id="landingPage" data-scroll-trigger>
       <div class="landing-content">
@@ -42,13 +65,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </span>
         </div>
         <h1 class="landing-title">Théo Schwartz</h1>
-        <p class="landing-subtitle">Cybersecurity Student · Paris</p>
-        <p class="landing-description">
+        <p class="landing-subtitle" id="typing-text" data-i18n="landing.subtitle"></p>
+        <p class="landing-description" data-i18n="landing.description">
           Building security tools that solve real problems. Fascinated by failure modes ; how systems break, how networks fail, how assumptions crumble.
         </p>
       </div>
       <div class="scroll-indicator" data-scroll-trigger>
-        <span class="scroll-indicator-text">Cliquez n'importe où</span>
+        <span class="scroll-indicator-text" data-i18n="landing.scroll">Click anywhere</span>
         <div class="scroll-indicator-icon"></div>
       </div>
     </div>
@@ -68,19 +91,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a class="brand" href="#top"><span class="dot"></span> Théo</a>
         <div class="nav-links">
           <span class="nav-indicator" id="nav-indicator"></span>
-          <a href="#about" class="nav-link" title="About"><i class="fas fa-user-astronaut"></i></a>
-          <a href="#skills" class="nav-link" title="Skills"><i class="fas fa-brain"></i></a>
-          <a href="#certifications" class="nav-link" title="Certifications"><i class="fas fa-award"></i></a>
-          <a href="#projects" class="nav-link" title="Projects"><i class="fas fa-lightbulb"></i></a>
-          <a href="#contributions" class="nav-link" title="Contributions"><i class="fas fa-code-branch"></i></a>
-          <a href="#education" class="nav-link" title="Education"><i class="fas fa-university"></i></a>
-          <a href="#contact" class="nav-link" title="Contact"><i class="fas fa-meteor"></i></a>
+          <a href="#about" class="nav-link" title="About" aria-label="Navigate to About section"><i class="fas fa-user-astronaut" aria-hidden="true"></i></a>
+          <a href="#skills" class="nav-link" title="Skills" aria-label="Navigate to Skills section"><i class="fas fa-brain" aria-hidden="true"></i></a>
+          <a href="#certifications" class="nav-link" title="Certifications" aria-label="Navigate to Certifications section"><i class="fas fa-award" aria-hidden="true"></i></a>
+          <a href="#projects" class="nav-link" title="Projects" aria-label="Navigate to Projects section"><i class="fas fa-lightbulb" aria-hidden="true"></i></a>
+          <a href="#contributions" class="nav-link" title="Contributions" aria-label="Navigate to Contributions section"><i class="fas fa-code-branch" aria-hidden="true"></i></a>
+          <a href="#education" class="nav-link" title="Education" aria-label="Navigate to Education section"><i class="fas fa-university" aria-hidden="true"></i></a>
+          <a href="#contact" class="nav-link" title="Contact" aria-label="Navigate to Contact section"><i class="fas fa-meteor" aria-hidden="true"></i></a>
         </div>
-        <button id="toggle-mode" title="Mode clair/sombre">
+        <button id="toggle-mode" title="Mode clair/sombre" aria-label="Toggle light and dark mode">
           <div class="mode-icon-container">
-            <i class="fas fa-sun mode-icon sun-icon"></i>
-            <i class="fas fa-moon mode-icon moon-icon"></i>
+            <i class="fas fa-sun mode-icon sun-icon" aria-hidden="true"></i>
+            <i class="fas fa-moon mode-icon moon-icon" aria-hidden="true"></i>
           </div>
+        </button>
+        <button id="toggle-lang" title="Switch language" aria-label="Switch between French and English">
+          <span id="lang-flag">🇫🇷</span>
         </button>
         <span id="greeting"></span>
       </div>
@@ -92,53 +118,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Header -->
         <header id="top">
           <div class="profile-wrapper">
-            <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="profile-picture">
+            <img src="https://avatars.githubusercontent.com/u/12449655?v=4" alt="Théo Schwartz" class="profile-picture" loading="lazy">
             <span class="status-dot"></span>
             <span class="security-badge">
               <i class="fas fa-shield-alt"></i>
             </span>
           </div>
           <h1>Théo Schwartz</h1>
-          <p class="subtitle">Cybersecurity Student · Paris</p>
+          <p class="subtitle" data-i18n="header.subtitle">Cybersecurity Student · Paris</p>
           <div class="header-actions">
             <a href="Théo-SCHWARTZ-CV.pdf" download class="btn">
               <i class="fas fa-file-arrow-down"></i>
-              Download CV
+              <span data-i18n="header.download">Download CV</span>
             </a>
             <a href="#contact" class="btn">
               <i class="fas fa-paper-plane"></i>
-              Get in Touch
+              <span data-i18n="header.contact">Get in Touch</span>
             </a>
           </div>
         </header>
 
         <!-- About -->
         <section id="about">
-          <h2>About</h2>
+          <h2 data-i18n="about.title">ABOUT</h2>
           <div class="about-grid">
             <div class="about-card">
-              <h3>Who</h3>
-              <p>19 yo, IPSSI student (2025–2028), Paris. I build security tools that solve actual problems, not theoretical ones. Fascinated by failure modes — how code breaks, how networks fail, how assumptions crumble.</p>
+              <h3 data-i18n="about.who.title">Who</h3>
+              <p data-i18n="about.who.text">19 yo, IPSSI student (2025–2028), Paris. I build security tools that solve actual problems, not theoretical ones. Fascinated by failure modes — how code breaks, how networks fail, how assumptions crumble.</p>
             </div>
             
             <div class="about-card">
-              <h3>Am</h3>
-              <p>Semi-nomadic by design. Currently Paris, but always moving. Music production isn't a hobby; it's how I think. Building synthesis patches, finding harmonic accidents between hardware and software.</p>
+              <h3 data-i18n="about.am.title">Am</h3>
+              <p data-i18n="about.am.text">Semi-nomadic by design. Currently Paris, but always moving. Music production isn't a hobby; it's how I think. Building synthesis patches, finding harmonic accidents between hardware and software.</p>
             </div>
             
             <div class="about-card">
-              <h3>I</h3>
-              <p>Value pragmatism over everything. Build, learn through doing, document ruthlessly. My code solves real problems, not ego problems. The unglamorous work is what makes systems survive.</p>
+              <h3 data-i18n="about.i.title">I</h3>
+              <p data-i18n="about.i.text">Value pragmatism over everything. Build, learn through doing, document ruthlessly. My code solves real problems, not ego problems. The unglamorous work is what makes systems survive.</p>
             </div>
           </div>
         </section>
 
         <!-- Skills -->
         <section id="skills">
-          <h2>Technical Skills</h2>
+          <h2 data-i18n="skills.title">TECHNICAL SKILLS</h2>
           <div class="skills-grid">
             <div class="skills-category">
-              <h3>Languages</h3>
+              <h3 data-i18n="skills.languages">Languages</h3>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Python_(langage)"><i class="fab fa-python"></i>Python</div>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/JavaScript"><i class="fab fa-js"></i>JavaScript</div>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Bourne-Again_shell"><i class="fas fa-terminal"></i>Bash</div>
@@ -148,7 +174,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <div class="skills-category">
-              <h3>Security Tools</h3>
+              <h3 data-i18n="skills.security">Security Tools</h3>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Metasploit"><i class="fas fa-shield-alt"></i>Metasploit</div>
               <div class="skill" data-wiki-url="https://en.wikipedia.org/wiki/Burp_Suite"><i class="fas fa-bug"></i>Burp Suite</div>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Nmap"><i class="fas fa-network-wired"></i>Nmap</div>
@@ -157,7 +183,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <div class="skills-category">
-              <h3>Environment</h3>
+              <h3 data-i18n="skills.environment">Environment</h3>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Kali_Linux"><i class="fas fa-dragon"></i>Kali Linux</div>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Visual_Studio_Code"><i class="fas fa-code"></i>VS Code</div>
               <div class="skill" data-wiki-url="https://fr.wikipedia.org/wiki/Git"><i class="fab fa-git-alt"></i>Git</div>
@@ -170,41 +196,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Certifications -->
         <section id="certifications">
-          <h2>Certifications</h2>
+          <h2 data-i18n="certifications.title">CERTIFICATIONS</h2>
           
           <div class="cert-section">
-            <h3>SecNumacadémie</h3>
+            <h3 data-i18n="cert.anssi.title">SecNumacadémie</h3>
             <div class="score-item"><span>Panorama de la SSI</span><span>92%</span></div>
             <div class="score-item"><span>Sécurité de l'authentification</span><span>90%</span></div>
             <div class="score-item"><span>Sécurité sur Internet</span><span>86%</span></div>
             <div class="score-item"><span>Sécurité du poste de travail</span><span>88%</span></div>
-            <p class="cert-org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
+            <p class="cert-org" data-i18n="cert.anssi.org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
           </div>
 
           <div class="cert-section">
-            <h3>Commission Nationale de l'Informatique et des Libertés</h3>
-            <div class="checkpoint"><i class="fas fa-check"></i>Le RGPD et ses notions clés</div>
-            <div class="checkpoint"><i class="fas fa-check"></i>Principes de la protection des données</div>
-            <div class="checkpoint"><i class="fas fa-check"></i>Responsabilités des acteurs</div>
-            <div class="checkpoint"><i class="fas fa-check"></i>DPO et outils de la conformité</div>
+            <h3 data-i18n="cert.cnil.title">Commission Nationale de l'Informatique et des Libertés</h3>
+            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.1">Le RGPD et ses notions clés</span></div>
+            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.2">Principes de la protection des données</span></div>
+            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.3">Responsabilités des acteurs</span></div>
+            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.4">DPO et outils de la conformité</span></div>
           </div>
         </section>
 
         <!-- Projects -->
         <section id="projects">
-          <h2>Projects</h2>
+          <h2 data-i18n="projects.title">PROJECTS</h2>
 
-          <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank" rel="noopener noreferrer">
-            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <a class="project" href="https://github.com/ctctchm/Password-Analyzer" target="_blank" rel="noopener noreferrer">
+            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i><span data-i18n="projects.view">View on GitHub</span></span>
             <div class="project-header">
               <span class="project-icon"><i class="fas fa-shield-alt"></i></span>
-              <h3>Password Analyzer</h3>
+              <h3 data-i18n="projects.pwd.title">Password Analyzer</h3>
             </div>
-            <p>Built because I got tired of guessing password strength. Entropy scoring that actually works, pattern recognition for keyboard walks, predictable substitutions. Estimates real-world crack time using GPU benchmarks.</p>
+            <p data-i18n="projects.pwd.desc">Built because I got tired of guessing password strength. Entropy scoring that actually works, pattern recognition for keyboard walks, predictable substitutions. Estimates real-world crack time using GPU benchmarks.</p>
             <ul class="project-bullets">
-              <li><strong>Scoring:</strong> entropy-based strength with practical heuristics.</li>
-              <li><strong>Patterns:</strong> detects keyboard walks and common substitution habits.</li>
-              <li><strong>Estimation:</strong> crack-time approximation using GPU benchmark baselines.</li>
+              <li data-i18n="projects.pwd.feat1"><strong>Scoring:</strong> entropy-based strength with practical heuristics.</li>
+              <li data-i18n="projects.pwd.feat2"><strong>Patterns:</strong> detects keyboard walks and common substitution habits.</li>
+              <li data-i18n="projects.pwd.feat3"><strong>Estimation:</strong> crack-time approximation using GPU benchmark baselines.</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
@@ -218,17 +244,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank" rel="noopener noreferrer">
-            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <a class="project" href="https://github.com/ctctchm/Web-Vuln-Analyzer-v1.0" target="_blank" rel="noopener noreferrer">
+            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i><span data-i18n="projects.view">View on GitHub</span></span>
             <div class="project-header">
               <span class="project-icon"><i class="fas fa-bug"></i></span>
-              <h3>Web Vuln Analyzer</h3>
+              <h3 data-i18n="projects.vuln.title">Web Vuln Analyzer</h3>
             </div>
-            <p>My first real security tool. Automates the boring part, testing. Finds SQLi, XSS, CSRF, path traversal, parameter pollution. The insight: generate context-aware payloads.</p>
+            <p data-i18n="projects.vuln.desc">My first real security tool. Automates the boring part, testing. Finds SQLi, XSS, CSRF, path traversal, parameter pollution. The insight: generate context-aware payloads.</p>
             <ul class="project-bullets">
-              <li><strong>Automation:</strong> crawl + test loop to reduce manual recon.</li>
-              <li><strong>Coverage:</strong> targets SQLi, XSS, CSRF, traversal, parameter pollution.</li>
-              <li><strong>Payloads:</strong> context-aware generation rather than naive fuzzing.</li>
+              <li data-i18n="projects.vuln.feat1"><strong>Automation:</strong> crawl + test loop to reduce manual recon.</li>
+              <li data-i18n="projects.vuln.feat2"><strong>Coverage:</strong> targets SQLi, XSS, CSRF, traversal, parameter pollution.</li>
+              <li data-i18n="projects.vuln.feat3"><strong>Payloads:</strong> context-aware generation rather than naive fuzzing.</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
@@ -242,16 +268,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank" rel="noopener noreferrer">
-            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <a class="project" href="https://github.com/ctctchm/steganography_toolkit" target="_blank" rel="noopener noreferrer">
+            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i><span data-i18n="projects.view">View on GitHub</span></span>
             <div class="project-header">
               <span class="project-icon"><i class="fas fa-image"></i></span>
-              <h3>Steganography Toolkit</h3>
+              <h3 data-i18n="projects.stega.title">Steganography Toolkit</h3>
             </div>
-            <p>LSB steganography, EXIF manipulation, metadata injection. Hide data in images imperceptibly — the eye won't catch what statistics can't explain.</p>
+            <p data-i18n="projects.stega.desc">LSB steganography, EXIF manipulation, metadata injection. Hide data in images imperceptibly — the eye won't catch what statistics can't explain.</p>
             <ul class="project-bullets">
-              <li><strong>Techniques:</strong> LSB steganography + EXIF/metadata manipulation.</li>
-              <li><strong>Workflow:</strong> hide + extract utilities designed for real scenarios.</li>
+              <li data-i18n="projects.stega.feat1"><strong>Techniques:</strong> LSB steganography + EXIF/metadata manipulation.</li>
+              <li data-i18n="projects.stega.feat2"><strong>Workflow:</strong> hide + extract utilities designed for real scenarios.</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag"><i class="fab fa-python"></i>Python</span>
@@ -265,17 +291,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ctctchm?tab=repositories" target="_blank" rel="noopener noreferrer">
-            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i>View on GitHub</span>
+          <a class="project" href="https://github.com/ctctchm/jeu_dont_vous_etes_le_hero" target="_blank" rel="noopener noreferrer">
+            <span class="project-cta"><i class="fas fa-arrow-up-right-from-square"></i><span data-i18n="projects.view">View on GitHub</span></span>
             <div class="project-header">
               <span class="project-icon"><i class="fas fa-gamepad"></i></span>
-              <h3>Interactive Narrative Engine</h3>
+              <h3 data-i18n="projects.narrative.title">Interactive Narrative Engine</h3>
             </div>
-            <p>Passion project. Interactive fiction engine built on state machines. Branching dialogue with real consequences. Built to prove a thesis: games and serious tools are the same architecture.</p>
+            <p data-i18n="projects.narrative.desc">Passion project. Interactive fiction engine built on state machines. Branching dialogue with real consequences. Built to prove a thesis: games and serious tools are the same architecture.</p>
             <ul class="project-bullets">
-              <li><strong>Core:</strong> state-machine driven story logic.</li>
-              <li><strong>Design:</strong> branching dialogue with meaningful consequences.</li>
-              <li><strong>Architecture:</strong> tool-like structure applied to game systems.</li>
+              <li data-i18n="projects.narrative.feat1"><strong>Core:</strong> state-machine driven story logic.</li>
+              <li data-i18n="projects.narrative.feat2"><strong>Design:</strong> branching dialogue with meaningful consequences.</li>
+              <li data-i18n="projects.narrative.feat3"><strong>Architecture:</strong> tool-like structure applied to game systems.</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag"><i class="fab fa-js"></i>JavaScript</span>
@@ -292,12 +318,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Contributions -->
         <section id="contributions">
-          <h2>Contributions</h2>
+          <h2 data-i18n="contributions.title">CONTRIBUTIONS</h2>
           <div class="github-contributions">
             <div class="contributions-header">
               <div class="contributions-title">
                 <i class="fab fa-github"></i>
-                <span>GitHub Activity</span>
+                <span data-i18n="contributions.activity">GitHub Activity</span>
               </div>
               <a href="https://github.com/ctctchm" target="_blank" class="contributions-link" rel="noopener noreferrer">
                 @ctctchm <i class="fas fa-external-link-alt"></i>
@@ -311,9 +337,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="calendar-grid" id="calendar-grid"></div>
               </div>
               <div class="calendar-footer">
-                <span class="calendar-count" id="calendar-count">Loading...</span>
+                <span class="calendar-count" id="calendar-count" data-i18n="contributions.loading">Loading...</span>
                 <div class="calendar-legend">
-                  <span>Less</span>
+                  <span data-i18n="contributions.less">Less</span>
                   <div class="legend-colors">
                     <span class="legend-level level-0"></span>
                     <span class="legend-level level-1"></span>
@@ -321,7 +347,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <span class="legend-level level-3"></span>
                     <span class="legend-level level-4"></span>
                   </div>
-                  <span>More</span>
+                  <span data-i18n="contributions.more">More</span>
                 </div>
               </div>
             </div>
@@ -330,22 +356,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Education -->
         <section id="education">
-          <h2>Education</h2>
+          <h2 data-i18n="education.title">EDUCATION</h2>
 
           <div class="education-timeline">
             <div class="education-card">
               <div class="education-content">
                 <div class="education-header" data-education-toggle="lycee">
+                  <span class="education-clickhint" data-i18n="education.clickhint">Cliquer pour développer</span>
                   <div class="education-meta">
                     <span class="education-period">2023—2025</span>
                     <span class="education-separator">/</span>
                     <span class="education-location">Annecy</span>
                   </div>
-                  <h3 class="education-title">
+                  <h3 class="education-title" data-i18n="education.lycee.title">
                     Lycée Lachenal
                     <i class="fas fa-chevron-down toggle-icon" id="toggle-lycee"></i>
                   </h3>
-                  <p class="education-subtitle">Baccalauréat NSI · Engineering Sciences</p>
+                  <p class="education-subtitle" data-i18n="education.lycee.subtitle">Baccalauréat NSI · Engineering Sciences</p>
                   <div class="education-tags">
                     <span class="education-tag">Computer Science</span>
                     <span class="education-tag">Systems</span>
@@ -353,10 +380,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <div class="education-description" id="desc-lycee">
                   <div class="description-content">
-                    <p class="main-description">Systems thinking — understanding interaction, cascade, failure. Engineering foundations — solving at structural scale. Electronics & digital systems — theory meets physical reality.</p>
+                    <p class="main-description" data-i18n="education.lycee.desc">Systems thinking — understanding interaction, cascade, failure. Engineering foundations — solving at structural scale. Electronics & digital systems — theory meets physical reality.</p>
                     <div class="info-grid">
                       <div class="info-card">
-                        <h5>Program</h5>
+                        <h5 data-i18n="education.lycee.program">Program</h5>
                         <ul>
                           <li>General Baccalauréat</li>
                           <li>Specialty: SIN</li>
@@ -364,7 +391,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Subjects</h5>
+                        <h5 data-i18n="education.lycee.subjects">Subjects</h5>
                         <ul>
                           <li>Computer & Digital Sciences</li>
                           <li>Mathematics</li>
@@ -373,7 +400,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Projects</h5>
+                        <h5 data-i18n="education.lycee.projects">Projects</h5>
                         <ul>
                           <li>IoT sensor networks</li>
                           <li>Embedded Linux systems</li>
@@ -390,16 +417,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="education-card">
               <div class="education-content">
                 <div class="education-header" data-education-toggle="ipssi">
+                  <span class="education-clickhint" data-i18n="education.clickhint">Click to expand</span>
                   <div class="education-meta">
                     <span class="education-period">2025—2028</span>
                     <span class="education-separator">/</span>
                     <span class="education-location">Paris</span>
                   </div>
-                  <h3 class="education-title">
+                  <h3 class="education-title" data-i18n="education.ipssi.title">
                     IPSSI — Bachelor Cybersecurity
                     <i class="fas fa-chevron-down toggle-icon" id="toggle-ipssi"></i>
                   </h3>
-                  <p class="education-subtitle">Offensive security · System architecture</p>
+                  <p class="education-subtitle" data-i18n="education.ipssi.subtitle">Offensive security · System architecture</p>
                   <div class="education-tags">
                     <span class="education-tag">Year 1</span>
                     <span class="education-tag">In progress</span>
@@ -407,7 +435,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <div class="education-description" id="desc-ipssi">
                   <div class="description-content">
-                    <p class="main-description">System architecture — understanding the machine to attack. Protocols & network security — how the internet fails. Offensive security — thinking like an attacker.</p>
+                    <p class="main-description" data-i18n="education.ipssi.desc">System architecture — understanding the machine to attack. Protocols & network security — how the internet fails. Offensive security — thinking like an attacker.</p>
                     <div class="info-grid">
                       <div class="info-card">
                         <h5>Program</h5>
@@ -419,7 +447,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Modules</h5>
+                        <h5 data-i18n="education.ipssi.modules">Modules</h5>
                         <ul>
                           <li>System architecture</li>
                           <li>Network protocols & security</li>
@@ -429,7 +457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </ul>
                       </div>
                       <div class="info-card">
-                        <h5>Tools</h5>
+                        <h5 data-i18n="education.ipssi.tools">Tools</h5>
                         <ul>
                           <li>Kali Linux, Metasploit</li>
                           <li>Burp Suite, Wireshark</li>
@@ -445,7 +473,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           <div class="platforms-section">
-            <h3>Practice Platforms</h3>
+            <h3 data-i18n="education.platforms">PRACTICE PLATFORMS</h3>
             <div class="platforms-grid">
               <div class="platform">
                 <div class="platform-icon rootme-icon">
@@ -457,7 +485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
               <div class="platform">
                 <div class="platform-icon">
-                  <img src="https://assets.tryhackme.com/img/THMlogo.png" alt="TryHackMe">
+                  <img src="https://assets.tryhackme.com/img/THMlogo.png" alt="TryHackMe" loading="lazy">
                 </div>
                 <div class="platform-info">
                   <div class="platform-name">TryHackMe</div>
@@ -469,10 +497,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Contact -->
         <section id="contact">
-          <h2>Contact</h2>
+          <h2 data-i18n="contact.title">CONTACT</h2>
           <div class="contact-intro">
-            <h3>Let's Connect</h3>
-            <p>Feel free to reach out for any opportunity, collaboration, or question.</p>
+            <h3 data-i18n="contact.intro.title">Let's Connect</h3>
+            <p data-i18n="contact.intro.text">Feel free to reach out for any opportunity, collaboration, or question.</p>
           </div>
           <div class="contact-grid">
             <div class="contact-card" data-copy-email style="cursor: pointer;">
@@ -480,8 +508,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <i class="fas fa-envelope"></i>
               </div>
               <div class="contact-info">
-                <div class="contact-label">Email</div>
-                <div class="contact-value"><span id="email-display">Cliquer pour révéler</span> <br> <span class="contact-status">24h response</span></div>
+                <div class="contact-label" data-i18n="contact.email.label">Email</div>
+                <div class="contact-value"><span id="email-display" data-i18n="contact.email.value">Click to reveal</span> <br> <span class="contact-status" data-i18n="contact.email.response">24h response</span></div>
               </div>
             </div>
             <a href="https://github.com/ctctchm" target="_blank" class="contact-card" rel="noopener noreferrer">
@@ -489,7 +517,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <i class="fab fa-github"></i>
               </div>
               <div class="contact-info">
-                <div class="contact-label">GitHub</div>
+                <div class="contact-label" data-i18n="contact.github.label">GitHub</div>
                 <div class="contact-value">@ctctchm</div>
               </div>
             </a>
@@ -498,7 +526,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <i class="fas fa-flag"></i>
               </div>
               <div class="contact-info">
-                <div class="contact-label">Root-Me</div>
+                <div class="contact-label" data-i18n="contact.rootme.label">Root-Me</div>
                 <div class="contact-value">ctctchm</div>
               </div>
             </a>
@@ -522,7 +550,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="footer-text">
             © 2025 Théo Schwartz<br>
-            <span>Currently based in Paris · Always learning</span>
+            <span data-i18n="footer.made">Currently based in Paris · Always learning</span><br>
+            <span class="footer-quote" id="random-quote"></span>
           </div>
         </div>
         
@@ -530,35 +559,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="site-info-widget">
           <div class="info-row">
             <i class="fas fa-circle" id="status-dot"></i>
-            <span class="info-label">Status:</span>
-            <span class="info-value" id="site-status">Online</span>
+            <span class="info-label" data-i18n="widget.status">Status:</span>
+            <span class="info-value" id="site-status" data-i18n="widget.status.online">Online</span>
           </div>
           <div class="info-row">
             <i class="fas fa-code"></i>
-            <span class="info-label">Built with:</span>
+            <span class="info-label" data-i18n="widget.built">Built with:</span>
             <span class="info-value">HTML/CSS/JS</span>
           </div>
           <div class="info-row">
             <i class="fas fa-shield-alt"></i>
-            <span class="info-label">Security:</span>
-            <span class="info-value">CSP Enabled</span>
+            <span class="info-label" data-i18n="widget.security">Security:</span>
+            <span class="info-value" data-i18n="widget.security.enabled">CSP Enabled</span>
           </div>
           <div class="info-row">
             <i class="fas fa-clock"></i>
-            <span class="info-label">Updated:</span>
+            <span class="info-label" data-i18n="widget.updated">Updated:</span>
             <span class="info-value">2025-02-07</span>
           </div>
           <div class="info-row">
             <i class="fas fa-tachometer-alt"></i>
-            <span class="info-label">Load time:</span>
+            <span class="info-label" data-i18n="widget.loadtime">Load time:</span>
             <span class="info-value" id="load-time">--ms</span>
+          </div>
+          <div class="info-row">
+            <i class="fas fa-eye"></i>
+            <span class="info-label" data-i18n="widget.visitors">Visitors:</span>
+            <span class="info-value" id="visitor-count">--</span>
           </div>
         </div>
       </footer>
 
     <!-- Back to Top -->
-    <button id="back-to-top" title="Back to top">
-      <i class="fas fa-arrow-up"></i>
+    <button id="back-to-top" title="Back to top" aria-label="Scroll back to top">
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
   </div>
 

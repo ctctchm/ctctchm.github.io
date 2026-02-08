@@ -1,0 +1,5 @@
+# robots.txt for ctctchm.github.io
+User-agent: *
+Allow: /
+
+Sitemap: https://ctctchm.github.io/sitemap.xml

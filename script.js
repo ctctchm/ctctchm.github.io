@@ -1,6 +1,466 @@
 // Détection mobile
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+// Système i18n (internationalisation) - Traduction complète
+const translations = {
+  fr: {
+    // Landing Page
+    'landing.subtitle': 'Étudiant en Cybersécurité · Paris',
+    'landing.description': 'Création d\'outils de sécurité qui résolvent de vrais problèmes. Fasciné par les modes d\'échec ; comment les systèmes se brisent, comment les réseaux tombent, comment les hypothèses s\'effondrent.',
+    'landing.scroll': 'Cliquez n\'importe où',
+    
+    // Navigation
+    'nav.about': 'À propos',
+    'nav.skills': 'Compétences',
+    'nav.certifications': 'Certifications',
+    'nav.projects': 'Projets',
+    'nav.contributions': 'Contributions',
+    'nav.education': 'Formation',
+    'nav.contact': 'Contact',
+    
+    // Header
+    'header.subtitle': 'Étudiant en Cybersécurité · Paris',
+    'header.download': 'Télécharger CV',
+    'header.contact': 'Me Contacter',
+    
+    // About Section
+    'about.title': 'À PROPOS',
+    'about.who.title': 'Qui',
+    'about.who.text': '19 ans, étudiant IPSSI (2025-2028), Paris. Je construis des outils de sécurité qui résolvent des problèmes réels, pas théoriques. Fasciné par les modes d\'échec — comment le code casse, comment les réseaux échouent, comment les hypothèses s\'effondrent.',
+    'about.am.title': 'Suis',
+    'about.am.text': 'Semi-nomade par design. Actuellement Paris, mais toujours en mouvement. La production musicale n\'est pas un hobby ; c\'est comment je pense. Construction de patchs de synthèse, recherche d\'accidents harmoniques entre hardware et software.',
+    'about.i.title': 'Je',
+    'about.i.text': 'Valorise le pragmatisme avant tout. Construire, apprendre en faisant, documenter impitoyablement. Mon code résout de vrais problèmes, pas des problèmes d\'ego. Le travail ingrat est ce qui fait survivre les systèmes.',
+    
+    // Skills Section
+    'skills.title': 'COMPÉTENCES TECHNIQUES',
+    'skills.languages': 'Langages',
+    'skills.security': 'Outils de Sécurité',
+    'skills.environment': 'Environnement',
+    
+    // Certifications Section
+    'certifications.title': 'CERTIFICATIONS',
+    'cert.anssi.title': 'SecNumacadémie',
+    'cert.anssi.org': 'ANSSI — Agence nationale de la sécurité des systèmes d\'information',
+    'cert.cnil.title': 'Commission Nationale de l\'Informatique et des Libertés',
+    'cert.cnil.1': 'Le RGPD et ses notions clés',
+    'cert.cnil.2': 'Principes de la protection des données',
+    'cert.cnil.3': 'Responsabilités des acteurs',
+    'cert.cnil.4': 'DPO et outils de la conformité',
+    
+    // Projects Section
+    'projects.title': 'PROJETS',
+    'projects.view': 'Voir sur GitHub',
+    'projects.pwd.title': 'Password Analyzer',
+    'projects.pwd.desc': 'Construit parce que j\'en avais marre de deviner la force des mots de passe. Scoring d\'entropie qui fonctionne réellement, reconnaissance de motifs pour les séquences clavier, substitutions prévisibles. Estime le temps de crack réel avec des benchmarks GPU.',
+    'projects.pwd.feat1': '<strong>Scoring :</strong> force basée sur l\'entropie avec heuristiques pratiques.',
+    'projects.pwd.feat2': '<strong>Motifs :</strong> détecte les séquences clavier et habitudes de substitution courantes.',
+    'projects.pwd.feat3': '<strong>Estimation :</strong> approximation du temps de crack avec benchmarks GPU.',
+    'projects.vuln.title': 'Web Vuln Analyzer',
+    'projects.vuln.desc': 'Mon premier véritable outil de sécurité. Automatise la partie ennuyeuse, les tests. Trouve SQLi, XSS, CSRF, traversée de chemin, pollution de paramètres. L\'insight : générer des payloads contextuels.',
+    'projects.vuln.feat1': '<strong>Automatisation :</strong> boucle crawl + test pour réduire la reconnaissance manuelle.',
+    'projects.vuln.feat2': '<strong>Couverture :</strong> cible SQLi, XSS, CSRF, traversée, pollution de paramètres.',
+    'projects.vuln.feat3': '<strong>Payloads :</strong> génération consciente du contexte plutôt que fuzzing naïf.',
+    'projects.stega.title': 'Steganography Toolkit',
+    'projects.stega.desc': 'Stéganographie LSB, manipulation EXIF, injection de métadonnées. Cacher des données dans les images imperceptiblement — l\'œil ne captera pas ce que les statistiques ne peuvent expliquer.',
+    'projects.stega.feat1': '<strong>Techniques :</strong> stéganographie LSB + manipulation EXIF/métadonnées.',
+    'projects.stega.feat2': '<strong>Workflow :</strong> utilitaires de dissimulation + extraction conçus pour des scénarios réels.',
+    'projects.narrative.title': 'Interactive Narrative Engine',
+    'projects.narrative.desc': 'Projet passion. Moteur de fiction interactive basé sur des machines à états. Dialogue à embranchements avec de vraies conséquences. Construit pour prouver une thèse : jeux et outils sérieux partagent la même architecture.',
+    'projects.narrative.feat1': '<strong>Core :</strong> logique d\'histoire pilotée par machine à états.',
+    'projects.narrative.feat2': '<strong>Design :</strong> dialogue à embranchements avec des conséquences significatives.',
+    'projects.narrative.feat3': '<strong>Architecture :</strong> structure de type outil appliquée aux systèmes de jeu.',
+    
+    // Contributions Section
+    'contributions.title': 'CONTRIBUTIONS',
+    'contributions.activity': 'Activité GitHub',
+    'contributions.loading': 'Chargement...',
+    'contributions.less': 'Moins',
+    'contributions.more': 'Plus',
+    
+    // Education Section
+    'education.title': 'FORMATION',
+    'education.clickhint': 'Cliquer pour développer',
+    'education.lycee.title': 'Lycée Lachenal',
+    'education.lycee.subtitle': 'Baccalauréat NSI · Sciences de l\'Ingénieur',
+    'education.lycee.desc': 'Pensée systémique — comprendre l\'interaction, la cascade, l\'échec. Fondations d\'ingénierie — résoudre à l\'échelle structurelle. Électronique & systèmes numériques — théorie rencontre réalité physique.',
+    'education.lycee.program': 'Programme',
+    'education.lycee.subjects': 'Matières',
+    'education.lycee.projects': 'Projets',
+    'education.ipssi.title': 'IPSSI — Bachelor Cybersécurité',
+    'education.ipssi.subtitle': 'Sécurité offensive · Architecture système',
+    'education.ipssi.desc': 'Architecture système — comprendre la machine pour attaquer. Protocoles & sécurité réseau — comment internet échoue. Sécurité offensive — penser comme un attaquant.',
+    'education.ipssi.modules': 'Modules',
+    'education.ipssi.tools': 'Outils',
+    'education.platforms': 'PLATEFORMES D\'ENTRAÎNEMENT',
+    
+    // Contact Section
+    'contact.title': 'CONTACT',
+    'contact.intro.title': 'Connectons-nous',
+    'contact.intro.text': 'N\'hésitez pas à me contacter pour toute opportunité, collaboration ou question.',
+    'contact.email.label': 'Email',
+    'contact.email.value': 'Cliquer pour révéler',
+    'contact.email.response': 'Réponse sous 24h',
+    'contact.github.label': 'GitHub',
+    'contact.rootme.label': 'Root-Me',
+    
+    // Footer
+    'footer.made': 'Paris · Toujours en apprentissage',
+    
+    // Widget
+    'widget.status': 'Statut:',
+    'widget.status.online': 'En ligne',
+    'widget.built': 'Construit avec:',
+    'widget.security': 'Sécurité:',
+    'widget.security.enabled': 'CSP Activé',
+    'widget.updated': 'Mis à jour:',
+    'widget.loadtime': 'Temps de chargement:',
+    'widget.visitors': 'Visiteurs:',
+    
+    // Greeting
+    'greeting.morning': 'Bonjour',
+    'greeting.afternoon': 'Bon après-midi',
+    'greeting.evening': 'Bonsoir',
+    'greeting.night': 'Bonne nuit'
+  },
+  en: {
+    // Landing Page
+    'landing.subtitle': 'Cybersecurity Student · Paris',
+    'landing.description': 'Building security tools that solve real problems. Fascinated by failure modes ; how systems break, how networks fail, how assumptions crumble.',
+    'landing.scroll': 'Click anywhere',
+    
+    // Navigation
+    'nav.about': 'About',
+    'nav.skills': 'Skills',
+    'nav.certifications': 'Certifications',
+    'nav.projects': 'Projects',
+    'nav.contributions': 'Contributions',
+    'nav.education': 'Education',
+    'nav.contact': 'Contact',
+    
+    // Header
+    'header.subtitle': 'Cybersecurity Student · Paris',
+    'header.download': 'Download CV',
+    'header.contact': 'Get in Touch',
+    
+    // About Section
+    'about.title': 'ABOUT',
+    'about.who.title': 'Who',
+    'about.who.text': '19 yo, IPSSI student (2025–2028), Paris. I build security tools that solve actual problems, not theoretical ones. Fascinated by failure modes — how code breaks, how networks fail, how assumptions crumble.',
+    'about.am.title': 'Am',
+    'about.am.text': 'Semi-nomadic by design. Currently Paris, but always moving. Music production isn\'t a hobby; it\'s how I think. Building synthesis patches, finding harmonic accidents between hardware and software.',
+    'about.i.title': 'I',
+    'about.i.text': 'Value pragmatism over everything. Build, learn through doing, document ruthlessly. My code solves real problems, not ego problems. The unglamorous work is what makes systems survive.',
+    
+    // Skills Section
+    'skills.title': 'TECHNICAL SKILLS',
+    'skills.languages': 'Languages',
+    'skills.security': 'Security Tools',
+    'skills.environment': 'Environment',
+    
+    // Certifications Section
+    'certifications.title': 'CERTIFICATIONS',
+    'cert.anssi.title': 'SecNumacadémie',
+    'cert.anssi.org': 'ANSSI — French National Cybersecurity Agency',
+    'cert.cnil.title': 'French Data Protection Authority',
+    'cert.cnil.1': 'GDPR and its key concepts',
+    'cert.cnil.2': 'Data protection principles',
+    'cert.cnil.3': 'Stakeholders\' responsibilities',
+    'cert.cnil.4': 'DPO and compliance tools',
+    
+    // Projects Section
+    'projects.title': 'PROJECTS',
+    'projects.view': 'View on GitHub',
+    'projects.pwd.title': 'Password Analyzer',
+    'projects.pwd.desc': 'Built because I got tired of guessing password strength. Entropy scoring that actually works, pattern recognition for keyboard walks, predictable substitutions. Estimates real-world crack time using GPU benchmarks.',
+    'projects.pwd.feat1': 'Scoring: entropy-based strength with practical heuristics.',
+    'projects.pwd.feat2': 'Patterns: detects keyboard walks and common substitution habits.',
+    'projects.pwd.feat3': 'Estimation: crack-time approximation using GPU benchmark baselines.',
+    'projects.vuln.title': 'Web Vuln Analyzer',
+    'projects.vuln.desc': 'My first real security tool. Automates the boring part, testing. Finds SQLi, XSS, CSRF, path traversal, parameter pollution. The insight: generate context-aware payloads.',
+    'projects.vuln.feat1': 'Automation: crawl + test loop to reduce manual recon.',
+    'projects.vuln.feat2': 'Coverage: targets SQLi, XSS, CSRF, traversal, parameter pollution.',
+    'projects.vuln.feat3': 'Payloads: context-aware generation rather than naive fuzzing.',
+    'projects.stega.title': 'Steganography Toolkit',
+    'projects.stega.desc': 'LSB steganography, EXIF manipulation, metadata injection. Hide data in images imperceptibly — the eye won\'t catch what statistics can\'t explain.',
+    'projects.stega.feat1': 'Techniques: LSB steganography + EXIF/metadata manipulation.',
+    'projects.stega.feat2': 'Workflow: hide + extract utilities designed for real scenarios.',
+    'projects.narrative.title': 'Interactive Narrative Engine',
+    'projects.narrative.desc': 'Passion project. Interactive fiction engine built on state machines. Branching dialogue with real consequences. Built to prove a thesis: games and serious tools are the same architecture.',
+    'projects.narrative.feat1': 'Core: state-machine driven story logic.',
+    'projects.narrative.feat2': 'Design: branching dialogue with meaningful consequences.',
+    'projects.narrative.feat3': 'Architecture: tool-like structure applied to game systems.',
+    
+    // Contributions Section
+    'contributions.title': 'CONTRIBUTIONS',
+    'contributions.activity': 'GitHub Activity',
+    'contributions.loading': 'Loading...',
+    'contributions.less': 'Less',
+    'contributions.more': 'More',
+    
+    // Education Section
+    'education.title': 'EDUCATION',
+    'education.clickhint': 'Click to expand',
+    'education.lycee.title': 'Lycée Lachenal',
+    'education.lycee.subtitle': 'Baccalauréat NSI · Engineering Sciences',
+    'education.lycee.desc': 'Systems thinking — understanding interaction, cascade, failure. Engineering foundations — solving at structural scale. Electronics & digital systems — theory meets physical reality.',
+    'education.lycee.program': 'Program',
+    'education.lycee.subjects': 'Subjects',
+    'education.lycee.projects': 'Projects',
+    'education.ipssi.title': 'IPSSI — Bachelor Cybersecurity',
+    'education.ipssi.subtitle': 'Offensive security · System architecture',
+    'education.ipssi.desc': 'System architecture — understanding the machine to attack. Protocols & network security — how the internet fails. Offensive security — thinking like an attacker.',
+    'education.ipssi.modules': 'Modules',
+    'education.ipssi.tools': 'Tools',
+    'education.platforms': 'PRACTICE PLATFORMS',
+    
+    // Contact Section
+    'contact.title': 'CONTACT',
+    'contact.intro.title': 'Let\'s Connect',
+    'contact.intro.text': 'Feel free to reach out for any opportunity, collaboration, or question.',
+    'contact.email.label': 'Email',
+    'contact.email.value': 'Click to reveal',
+    'contact.email.response': '24h response',
+    'contact.github.label': 'GitHub',
+    'contact.rootme.label': 'Root-Me',
+    
+    // Footer
+    'footer.made': 'Paris · Always learning',
+    
+    // Widget
+    'widget.status': 'Status:',
+    'widget.status.online': 'Online',
+    'widget.built': 'Built with:',
+    'widget.security': 'Security:',
+    'widget.security.enabled': 'CSP Enabled',
+    'widget.updated': 'Updated:',
+    'widget.loadtime': 'Load time:',
+    'widget.visitors': 'Visitors:',
+    
+    // Greeting
+    'greeting.morning': 'Good morning',
+    'greeting.afternoon': 'Good afternoon',
+    'greeting.evening': 'Good evening',
+    'greeting.night': 'Good night'
+  }
+};
+
+let currentLang = 'fr';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('preferred_language', lang);
+  
+  // Mettre à jour le flag
+  const flagEl = document.getElementById('lang-flag');
+  if (flagEl) {
+    flagEl.textContent = lang === 'fr' ? '🇬🇧' : '🇫🇷';
+  }
+  
+  // Mettre à jour tous les éléments traduits
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
+      const translatedText = translations[lang][key];
+      
+      // Si le texte contient des balises HTML ou si c'est un <li>, utiliser innerHTML
+      if (translatedText.includes('<') || el.tagName === 'LI') {
+        el.innerHTML = translatedText;
+      } else {
+        el.textContent = translatedText;
+      }
+    }
+  });
+  
+  // Mettre à jour le greeting
+  updateGreeting();
+  
+  // Redémarrer le typing effect avec la nouvelle langue
+  if (document.getElementById('typing-text')) {
+    charIndex = 0;
+    isTyping = true;
+    typeEffect();
+  }
+}
+
+// Détecter la langue au chargement
+function detectLanguage() {
+  const saved = localStorage.getItem('preferred_language');
+  if (saved) {
+    return saved;
+  }
+  
+  const browserLang = navigator.language || navigator.userLanguage;
+  return browserLang.startsWith('fr') ? 'fr' : 'en';
+}
+
+// Initialiser la langue
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    currentLang = detectLanguage();
+    setLanguage(currentLang);
+  });
+} else {
+  currentLang = detectLanguage();
+  setLanguage(currentLang);
+}
+
+// Toggle langue
+const toggleLang = document.getElementById('toggle-lang');
+if (toggleLang) {
+  toggleLang.addEventListener('click', () => {
+    const newLang = currentLang === 'fr' ? 'en' : 'fr';
+    setLanguage(newLang);
+    
+    toggleLang.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      toggleLang.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        toggleLang.style.transform = '';
+      }, 150);
+    }, 100);
+  });
+}
+
+// Typing effect pour landing page
+let typingIndex = 0;
+let charIndex = 0;
+let isTyping = true;
+
+function typeEffect() {
+  const element = document.getElementById('typing-text');
+  if (!element || hasScrolled) return;
+  
+  const currentText = translations[currentLang]['landing.subtitle'];
+  
+  if (isTyping) {
+    if (charIndex < currentText.length) {
+      element.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+      setTimeout(typeEffect, 80);
+    } else {
+      isTyping = false;
+      setTimeout(typeEffect, 2000); // Pause avant de recommencer
+    }
+  } else {
+    if (charIndex > 0) {
+      element.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(typeEffect, 40);
+    } else {
+      isTyping = true;
+      setTimeout(typeEffect, 500);
+    }
+  }
+}
+
+// Démarrer l'effet typing au chargement
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(typeEffect, 500);
+  });
+} else {
+  setTimeout(typeEffect, 500);
+}
+
+// Konami Code Easter Egg (simplifié)
+const konamiCode = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+let konamiIndex = 0;
+
+function handleKonamiCode(e) {
+  const key = e.key;
+  
+  if (key === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    
+    if (konamiIndex === konamiCode.length) {
+      activateKonamiEasterEgg();
+      konamiIndex = 0;
+    }
+  } else {
+    konamiIndex = 0;
+  }
+}
+
+function activateKonamiEasterEgg() {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace; color: #0f0;
+    text-align: center; font-size: 42px; cursor: pointer;
+    animation: fadeIn 0.3s ease;
+  `;
+  overlay.innerHTML = '🔓 ACCESS GRANTED';
+  
+  overlay.onclick = () => {
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s';
+    setTimeout(() => document.body.removeChild(overlay), 300);
+  };
+  
+  document.body.appendChild(overlay);
+}
+
+document.addEventListener('keydown', handleKonamiCode);
+
+// Citations aléatoires sur la cybersécurité
+const securityQuotes = [
+  '"The only truly secure system is one that is powered off." — Gene Spafford',
+  '"Security is not a product, but a process." — Bruce Schneier',
+  '"The weakest link in security is the human element." — Kevin Mitnick',
+  '"Trust, but verify." — Ronald Reagan',
+  '"Privacy is not an option, and it shouldn\'t be the price we accept." — Gary Kovacs',
+  '"Knowledge is power, but the ability to secure it is paramount." — Anonymous',
+  '"In security, there is no such thing as 100% secure." — Whitfield Diffie',
+  '"The best defense is a good offense." — Security Proverb',
+  '"Complexity is the enemy of security." — Bruce Schneier',
+  '"Arguing that you don\'t care about privacy because you have nothing to hide is like saying you don\'t care about free speech." — Edward Snowden'
+];
+
+function displayRandomQuote() {
+  const quoteElement = document.getElementById('random-quote');
+  if (quoteElement) {
+    const randomQuote = securityQuotes[Math.floor(Math.random() * securityQuotes.length)];
+    quoteElement.textContent = randomQuote;
+  }
+}
+
+// Compteur de visiteurs
+function updateVisitorCount() {
+  const visitorKey = 'visitor_count';
+  const lastVisitKey = 'last_visit';
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000;
+  
+  let count = parseInt(localStorage.getItem(visitorKey) || '0');
+  const lastVisit = parseInt(localStorage.getItem(lastVisitKey) || '0');
+  
+  // Incrémenter si dernière visite > 24h
+  if (!lastVisit || (now - lastVisit) > oneDay) {
+    count++;
+    localStorage.setItem(visitorKey, count.toString());
+    localStorage.setItem(lastVisitKey, now.toString());
+  }
+  
+  const visitorElement = document.getElementById('visitor-count');
+  if (visitorElement) {
+    visitorElement.textContent = count.toString();
+  }
+}
+
+// Initialiser au chargement
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    displayRandomQuote();
+    updateVisitorCount();
+  });
+} else {
+  displayRandomQuote();
+  updateVisitorCount();
+}
+
 // Calculer le temps de chargement
 window.addEventListener('load', () => {
   const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
@@ -152,12 +612,16 @@ toggleMode.addEventListener('click', () => {
 // Message de salutation
 function updateGreeting() {
   const h = new Date().getHours();
-  let msg = '';
-  if (h < 5) msg = 'Good night';
-  else if (h < 12) msg = 'Good morning';
-  else if (h < 18) msg = 'Good afternoon';
-  else msg = 'Good evening';
-  document.getElementById('greeting').textContent = msg;
+  let key = '';
+  if (h < 5) key = 'greeting.night';
+  else if (h < 12) key = 'greeting.morning';
+  else if (h < 18) key = 'greeting.afternoon';
+  else key = 'greeting.evening';
+  
+  const greetingEl = document.getElementById('greeting');
+  if (greetingEl && translations[currentLang] && translations[currentLang][key]) {
+    greetingEl.textContent = translations[currentLang][key];
+  }
 }
 updateGreeting();
 setInterval(updateGreeting, 60*1000);
@@ -407,7 +871,7 @@ async function generateContributionGraph() {
     if (countEl) {
       if (error.name === 'AbortError') {
         countEl.textContent = 'Request timeout - please refresh';
-      } else {
+      } else {  
         countEl.textContent = 'Unable to load contributions';
       }
     }
@@ -659,5 +1123,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // Visual feedback
     skill.style.cursor = 'pointer';
+  });
+
+  // Stars parallax effect
+  const starsContainer = document.getElementById('starsContainer');
+  const starCount = 40; // Nombre d'étoiles
+  
+  // Générer les étoiles
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Variations de taille
+    const rand = Math.random();
+    if (rand < 0.3) {
+      star.classList.add('small');
+    } else if (rand > 0.8) {
+      star.classList.add('large');
+    }
+    
+    // Position aléatoire
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    
+    // Vitesse de parallaxe (dataset pour le scroll)
+    star.dataset.speed = (Math.random() * 0.5 + 0.3).toFixed(2); // entre 0.3 et 0.8
+    
+    starsContainer.appendChild(star);
+  }
+  
+  // Animation au scroll (vers le haut) avec traînées dynamiques
+  let ticking = false;
+  let lastScrollY = window.scrollY;
+  let scrollTimeout = null;
+  
+  function updateStars() {
+    const scrollY = window.scrollY;
+    const stars = document.querySelectorAll('.star');
+    const scrollVelocity = Math.abs(scrollY - lastScrollY);
+    
+    // Ajouter la classe "moving" si on scroll
+    if (scrollVelocity > 0.5) {
+      stars.forEach(star => {
+        const speed = parseFloat(star.dataset.speed);
+        const translateY = scrollY * speed * -0.3; // Négatif pour bouger vers le haut
+        star.style.transform = `translateY(${translateY}px)`;
+        star.classList.add('moving');
+      });
+      
+      // Enlever la classe après l'arrêt du scroll
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        stars.forEach(star => star.classList.remove('moving'));
+      }, 150);
+    } else {
+      stars.forEach(star => {
+        const speed = parseFloat(star.dataset.speed);
+        const translateY = scrollY * speed * -0.3;
+        star.style.transform = `translateY(${translateY}px)`;
+      });
+    }
+    
+    lastScrollY = scrollY;
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateStars);
+      ticking = true;
+    }
   });
 });
