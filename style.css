@@ -342,6 +342,7 @@ body.light-mode .landing-security-badge {
   margin-bottom: 12px;
   opacity: 0;
   animation: fadeInUp 0.8s ease 0.4s forwards;
+  font-family: 'Inter', sans-serif;
 }
 
 body.light-mode .landing-title {
@@ -534,6 +535,7 @@ h1 {
   position: relative;
   display: inline-block;
   transition: all 0.1s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 h2 {
