@@ -21,7 +21,7 @@
   
   <!-- OpenGraph Meta Tags -->
   <meta property="og:title" content="Théo Schwartz - Cybersecurity Portfolio">
-  <meta property="og:description" content="19 yo cybersecurity student building security tools that solve real problems. Paris, France.">
+  <meta property="og:description" content="19 yo cybersecurity student. Paris, France.">
   <meta property="og:image" content="https://ctctchm.github.io/pp.png">
   <meta property="og:url" content="https://ctctchm.github.io">
   <meta property="og:type" content="website">
@@ -77,14 +77,14 @@
   
   <!-- Preload critical assets -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" as="style">
-  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="style.css?v=6" as="style">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6">
   
   <!-- Defer non-critical JavaScript -->
   <script src="script.js" defer></script>
@@ -260,21 +260,90 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <section id="certifications">
           <h2 data-i18n="certifications.title">CERTIFICATIONS</h2>
           
-          <div class="cert-section">
-            <h3 data-i18n="cert.anssi.title">SecNumacadémie</h3>
-            <div class="score-item"><span>Panorama de la SSI</span><span>92%</span></div>
-            <div class="score-item"><span>Sécurité de l'authentification</span><span>90%</span></div>
-            <div class="score-item"><span>Sécurité sur Internet</span><span>86%</span></div>
-            <div class="score-item"><span>Sécurité du poste de travail</span><span>88%</span></div>
-            <p class="cert-org" data-i18n="cert.anssi.org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
-          </div>
+          <div class="certifications-grid">
+            <div class="cert-card anssi-cert">
+              <div class="cert-header">
+                <div class="cert-logo-wrapper">
+                  <img src="pic/anssi.png" alt="ANSSI Logo" class="cert-logo" loading="lazy">
+                </div>
+                <div class="cert-title-wrapper">
+                  <h3 data-i18n="cert.anssi.title">SecNumacadémie</h3>
+                  <p class="cert-issuer" data-i18n="cert.anssi.org">ANSSI — Agence nationale de la sécurité des systèmes d'information</p>
+                </div>
+              </div>
+              <div class="cert-content">
+                <div class="cert-modules">
+                  <div class="cert-module">
+                    <div class="module-info">
+                      <span class="module-name">Panorama de la SSI</span>
+                      <span class="module-score">92%</span>
+                    </div>
+                    <div class="module-bar"><div class="module-progress" style="width: 92%"></div></div>
+                  </div>
+                  <div class="cert-module">
+                    <div class="module-info">
+                      <span class="module-name">Sécurité de l'authentification</span>
+                      <span class="module-score">90%</span>
+                    </div>
+                    <div class="module-bar"><div class="module-progress" style="width: 90%"></div></div>
+                  </div>
+                  <div class="cert-module">
+                    <div class="module-info">
+                      <span class="module-name">Sécurité sur Internet</span>
+                      <span class="module-score">86%</span>
+                    </div>
+                    <div class="module-bar"><div class="module-progress" style="width: 86%"></div></div>
+                  </div>
+                  <div class="cert-module">
+                    <div class="module-info">
+                      <span class="module-name">Sécurité du poste de travail</span>
+                      <span class="module-score">88%</span>
+                    </div>
+                    <div class="module-bar"><div class="module-progress" style="width: 88%"></div></div>
+                  </div>
+                </div>
+                <div class="cert-badge">
+                  <i class="fas fa-shield-alt cert-icon-small"></i>
+                  <span>Certified</span>
+                </div>
+              </div>
+            </div>
 
-          <div class="cert-section">
-            <h3 data-i18n="cert.cnil.title">Commission Nationale de l'Informatique et des Libertés</h3>
-            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.1">Le RGPD et ses notions clés</span></div>
-            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.2">Principes de la protection des données</span></div>
-            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.3">Responsabilités des acteurs</span></div>
-            <div class="checkpoint"><i class="fas fa-check"></i><span data-i18n="cert.cnil.4">DPO et outils de la conformité</span></div>
+            <div class="cert-card cnil-cert">
+              <div class="cert-header">
+                <div class="cert-logo-wrapper">
+                  <img src="pic/cnil.png" alt="CNIL Logo" class="cert-logo" loading="lazy">
+                </div>
+                <div class="cert-title-wrapper">
+                  <h3 data-i18n="cert.cnil.title">Atelier RGPD</h3>
+                  <p class="cert-issuer">Commission Nationale de l'Informatique et des Libertés</p>
+                </div>
+              </div>
+              <div class="cert-content">
+                <div class="cert-topics">
+                  <div class="cert-topic">
+                    <i class="fas fa-check-circle cert-icon-small"></i>
+                    <span data-i18n="cert.cnil.1">Le RGPD et ses notions clés</span>
+                  </div>
+                  <div class="cert-topic">
+                    <i class="fas fa-check-circle cert-icon-small"></i>
+                    <span data-i18n="cert.cnil.2">Principes de la protection des données</span>
+                  </div>
+                  <div class="cert-topic">
+                    <i class="fas fa-check-circle cert-icon-small"></i>
+                    <span data-i18n="cert.cnil.3">Responsabilités des acteurs</span>
+                  </div>
+                  <div class="cert-topic">
+                    <i class="fas fa-check-circle cert-icon-small"></i>
+                    <span data-i18n="cert.cnil.4">DPO et outils de la conformité</span>
+                  </div>
+                </div>
+                <div class="cert-badge">
+                  <i class="fas fa-certificate cert-icon-small"></i>
+                  <span>Completed</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
