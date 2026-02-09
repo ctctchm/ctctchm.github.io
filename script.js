@@ -1,6 +1,27 @@
 // Détection mobile
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+// Fonction throttle pour optimiser les scroll handlers
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+}
+
+// Fonction debounce pour optimiser les resize handlers
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  }
+}
+
 // Système i18n (internationalisation) - Traduction complète
 const translations = {
   fr: {
@@ -670,8 +691,8 @@ function updateNav() {
   }
 }
 
-window.addEventListener('scroll', updateNav, { passive: true });
-window.addEventListener('resize', updateNav);
+window.addEventListener('scroll', throttle(updateNav, 16), { passive: true });
+window.addEventListener('resize', debounce(updateNav, 100));
 updateNav();
 
 // Smooth scroll
@@ -713,13 +734,16 @@ document.querySelector('.brand').addEventListener('click', (e) => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Back to top
+// Back to top - Optimis\u00e9 avec throttle
 const backToTop = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
+
+const updateBackToTop = throttle(() => {
   if (hasScrolled) {
     backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
   }
-}, { passive: true });
+}, 100);
+
+window.addEventListener('scroll', updateBackToTop, { passive: true });
 
 backToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1125,9 +1149,10 @@ document.addEventListener('DOMContentLoaded', () => {
     skill.style.cursor = 'pointer';
   });
 
-  // Stars parallax effect
+  // Stars parallax effect - Optimisé avec fragment
   const starsContainer = document.getElementById('starsContainer');
   const starCount = 40; // Nombre d'étoiles
+  const fragment = document.createDocumentFragment(); // Optimisation: batch DOM updates
   
   // Générer les étoiles
   for (let i = 0; i < starCount; i++) {
@@ -1149,8 +1174,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Vitesse de parallaxe (dataset pour le scroll)
     star.dataset.speed = (Math.random() * 0.5 + 0.3).toFixed(2); // entre 0.3 et 0.8
     
-    starsContainer.appendChild(star);
+    fragment.appendChild(star);
   }
+  
+  // Ajout unique au DOM pour éviter les reflows multiples
+  starsContainer.appendChild(fragment);
   
   // Animation au scroll (vers le haut) avec traînées dynamiques
   let ticking = false;
@@ -1195,3 +1223,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Scroll progress indicator
+const scrollProgress = document.getElementById('scroll-progress');
+
+const updateScrollProgress = throttle(() => {
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+  
+  if (scrollProgress) {
+    scrollProgress.style.height = Math.min(scrollPercent, 100) + '%';
+  }
+}, 16);
+
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+updateScrollProgress();

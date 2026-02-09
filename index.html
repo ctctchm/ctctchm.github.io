@@ -34,14 +34,60 @@
   <meta name="twitter:image" content="https://ctctchm.github.io/pp.png">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Portfolio of Théo Schwartz, cybersecurity student specializing in offensive security and penetration testing. Paris, France.">
-  <meta name="keywords" content="cybersecurity, penetration testing, security, portfolio, Paris, IPSSI">
+  <meta name="description" content="Portfolio de Théo Schwartz, étudiant en cybersécurité spécialisé en sécurité offensive et tests d'intrusion. Découvrez mes projets, compétences et certifications en sécurité informatique. Paris, France.">
+  <meta name="keywords" content="cybersecurity, penetration testing, security, portfolio, Paris, IPSSI, ethical hacking, sécurité offensive, ANSSI, CNIL, Python, Metasploit, Burp Suite">
   <meta name="author" content="Théo Schwartz">
+  <meta name="theme-color" content="#141414">
+  <link rel="canonical" href="https://ctctchm.github.io/">
+  
+  <!-- Structured Data (JSON-LD) pour le SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Théo Schwartz",
+    "jobTitle": "Cybersecurity Student",
+    "description": "19 yo cybersecurity student specializing in offensive security and building practical security tools",
+    "url": "https://ctctchm.github.io",
+    "image": "https://avatars.githubusercontent.com/u/12449655?v=4",
+    "sameAs": [
+      "https://github.com/ctctchm",
+      "https://www.root-me.org/ctctchm"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Paris",
+      "addressCountry": "FR"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "IPSSI"
+    },
+    "knowsAbout": [
+      "Cybersecurity",
+      "Penetration Testing",
+      "Python",
+      "Network Security",
+      "Offensive Security"
+    ]
+  }
+  </script>
   
   <link rel="icon" type="image/png" href="pp.png">
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preload" href="style.css" as="style">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -52,7 +98,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
     <!-- Stars Background -->
-    <div class="stars-container" id="starsContainer"></div>
+    <div class="stars-container" id="starsContainer" role="presentation" aria-hidden="true"></div>
 
     <!-- Landing Page -->
     <div class="landing-page" id="landingPage" data-scroll-trigger>
@@ -78,6 +124,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
+
+    <!-- Quick Links (Bottom Left) -->
+    <div id="quick-links">
+      <a href="https://github.com/ctctchm" target="_blank" rel="noopener noreferrer" class="quick-link" title="GitHub" aria-label="Visit GitHub profile">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/theo-schwartz" target="_blank" rel="noopener noreferrer" class="quick-link" title="LinkedIn" aria-label="Visit LinkedIn profile">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="mailto:schwartz.th@proton.me" class="quick-link" title="Email" aria-label="Send an email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
 
     <!-- Clock -->
     <div id="fr-clock-fixed">
@@ -549,7 +611,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </a>
           </div>
           <div class="footer-text">
-            © 2025 Théo Schwartz<br>
+            © 2026 Théo Schwartz<br>
             <span data-i18n="footer.made">Currently based in Paris · Always learning</span><br>
             <span class="footer-quote" id="random-quote"></span>
           </div>
@@ -575,7 +637,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="info-row">
             <i class="fas fa-clock"></i>
             <span class="info-label" data-i18n="widget.updated">Updated:</span>
-            <span class="info-value">2025-02-07</span>
+            <span class="info-value">2026-02-09</span>
           </div>
           <div class="info-row">
             <i class="fas fa-tachometer-alt"></i>
