@@ -47,11 +47,11 @@ const translations = {
     // About Section
     'about.title': 'À PROPOS',
     'about.who.title': 'Qui',
-    'about.who.text': '19 ans, étudiant IPSSI (2025-2028), Paris. Je construis des outils de sécurité qui résolvent des problèmes réels, pas théoriques. Fasciné par les modes d\'échec — comment le code casse, comment les réseaux échouent, comment les hypothèses s\'effondrent.',
+    'about.who.text': '19 ans, étudiant à IPSSI (2025‑2028), Paris. Je construis des outils de sécurité qui servent vraiment à quelque chose. J’aime comprendre comment le code casse et comment les systèmes échouent.',
     'about.am.title': 'Suis',
-    'about.am.text': 'Semi-nomade par design. Actuellement Paris, mais toujours en mouvement. La production musicale n\'est pas un hobby ; c\'est comment je pense. Construction de patchs de synthèse, recherche d\'accidents harmoniques entre hardware et software.',
+    'about.am.text': 'Je viens d\’Annecy, maintenant je vis à Paris pour mes études. J\'apprends en faisant, en testant mes propres projets et en cherchant les failles. Je bouge beaucoup, pas par hasard, mais pour explorer, comprendre et créer.',
     'about.i.title': 'Je',
-    'about.i.text': 'Valorise le pragmatisme avant tout. Construire, apprendre en faisant, documenter impitoyablement. Mon code résout de vrais problèmes, pas des problèmes d\'ego. Le travail ingrat est ce qui fait survivre les systèmes.',
+    'about.i.text': 'Pragmatisme avant tout. Construire, corriger, documenter. Mon code doit résoudre de vrais problèmes, pas flatter mon ego. Les bugs difficiles et les systèmes qui tombent… c’est là que j’apprends le plus.',
     
     // Skills Section
     'skills.title': 'COMPÉTENCES TECHNIQUES',
