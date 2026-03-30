@@ -27,7 +27,7 @@ const translations = {
   fr: {
     // Landing Page
     'landing.subtitle': 'Étudiant en Cybersécurité · Paris',
-    'landing.description': 'Security builder. Je pense en modes d\'échec',
+    'landing.description': 'Convaincu qu\'on ne protège bien que ce qu\'on sait briser',
     'landing.scroll': 'Cliquez n\'importe où',
     
     // Navigation
