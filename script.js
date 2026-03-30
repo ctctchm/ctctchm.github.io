@@ -63,11 +63,17 @@ const translations = {
     'certifications.title': 'CERTIFICATIONS',
     'cert.anssi.title': 'SecNumacadémie',
     'cert.anssi.org': 'ANSSI — Agence nationale de la sécurité des systèmes d\'information',
-    'cert.cnil.title': 'Commission Nationale de l\'Informatique et des Libertés',
+    'cert.cnil.title': 'CNIL',
     'cert.cnil.1': 'Le RGPD et ses notions clés',
     'cert.cnil.2': 'Principes de la protection des données',
     'cert.cnil.3': 'Responsabilités des acteurs',
     'cert.cnil.4': 'DPO et outils de la conformité',
+    'cert.ndg.title': 'Linux Unhatched',
+    'cert.ndg.org': 'Networking Academy (Cisco Networking Academy)',
+    'cert.ndg.1': 'Maîtrise des fondamentaux Linux et de la ligne de commande',
+    'cert.ndg.2': 'Navigation système, gestion des fichiers et des permissions',
+    'cert.ndg.3': 'Utilisation des outils Linux pour le diagnostic et le réseau',
+    'cert.ndg.4': 'Application des bonnes pratiques de sécurité et d\'administration',
     
     // Projects Section
     'projects.title': 'PROJETS',
@@ -191,6 +197,12 @@ const translations = {
     'cert.cnil.2': 'Data protection principles',
     'cert.cnil.3': 'Stakeholders\' responsibilities',
     'cert.cnil.4': 'DPO and compliance tools',
+    'cert.ndg.title': 'Linux Unhatched',
+    'cert.ndg.org': 'Networking Academy (Cisco Networking Academy)',
+    'cert.ndg.1': 'Mastery of Linux fundamentals and command-line operations',
+    'cert.ndg.2': 'System navigation, file management, and permissions handling',
+    'cert.ndg.3': 'Use of Linux tools for troubleshooting and network basics',
+    'cert.ndg.4': 'Application of security and system administration best practices',
     
     // Projects Section
     'projects.title': 'PROJECTS',
