@@ -27,7 +27,7 @@ const translations = {
   fr: {
     // Landing Page
     'landing.subtitle': 'Étudiant en Cybersécurité · Paris',
-    'landing.description': 'Création d\'outils de sécurité qui résolvent de vrais problèmes. Fasciné par les modes d\'échec ; comment les systèmes se brisent, comment les réseaux tombent, comment les hypothèses s\'effondrent.',
+    'landing.description': 'Security builder. Je pense en modes d\'échec',
     'landing.scroll': 'Cliquez n\'importe où',
     
     // Navigation
